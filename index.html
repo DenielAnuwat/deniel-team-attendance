@@ -9,39 +9,62 @@
 :root{
   --bg:#0d0f1a;--surface:#13162a;--surface2:#1a1e35;--card:#161929;
   --border:#252a45;--border2:#2e3555;
-  --accent:#7c6dfa;--accent2:#a78bfa;--accent-glow:rgba(124,109,250,0.18);
-  --green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--blue:#38bdf8;--pink:#f472b6;
+  --accent:#7c6dfa;--accent2:#a78bfa;
+  --green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--blue:#38bdf8;
   --text:#e2e8f0;--muted:#64748b;--muted2:#94a3b8;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;font-size:15px;min-height:100vh;}
-header{background:linear-gradient(135deg,#13162a,#0d0f1a);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
-.logo{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
-header h1{font-size:16px;font-weight:600;}
-.hdr-actions{margin-left:auto;display:flex;gap:8px;}
-.nav{display:flex;border-bottom:1px solid var(--border);background:var(--surface);padding:0 24px;overflow-x:auto;}
+
+/* LOCK SCREEN */
+#lock-screen{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;}
+.lock-box{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:40px 36px;width:320px;text-align:center;}
+.lock-logo{font-size:40px;margin-bottom:12px;}
+.lock-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+.lock-sub{font-size:12px;color:var(--muted);margin-bottom:24px;}
+.lock-box input{width:100%;text-align:center;font-size:18px;letter-spacing:4px;margin-bottom:14px;}
+.lock-err{color:var(--red);font-size:12px;margin-top:8px;min-height:18px;}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#13162a,#0d0f1a);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.logo{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+header h1{font-size:15px;font-weight:600;}
+.hdr-r{margin-left:auto;display:flex;gap:7px;align-items:center;}
+.lock-indicator{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px;}
+
+/* NAV */
+.nav{display:flex;border-bottom:1px solid var(--border);background:var(--surface);padding:0 22px;overflow-x:auto;}
 .nav::-webkit-scrollbar{height:2px;}
-.tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;font-family:'Sarabun',sans-serif;white-space:nowrap;transition:all .2s;}
+.tab{padding:11px 16px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;font-family:'Sarabun',sans-serif;white-space:nowrap;transition:all .2s;}
 .tab:hover{color:var(--muted2);}
 .tab.active{color:var(--accent2);border-bottom-color:var(--accent);}
-.page{display:none;padding:20px 24px;max-width:1100px;}
-#page-org{max-width:100%;padding:16px;}
+
+/* PAGE */
+.page{display:none;padding:18px 22px;max-width:1100px;}
 .page.active{display:block;}
-.btn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Sarabun',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:6px;}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(124,109,250,.3);}
+#page-org{max-width:100%;padding:14px;}
+
+/* BTN */
+.btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Sarabun',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+.btn-primary{background:var(--accent);color:#fff;}
 .btn-primary:hover{background:#8b7efb;}
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted);}
 .btn-ghost:hover{border-color:var(--accent);color:var(--text);}
 .btn-danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.35);color:var(--red);}
 .btn-success{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:var(--green);}
 .btn-warn{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);color:var(--yellow);}
-.btn-sm{padding:5px 12px;font-size:12px;border-radius:6px;}
-.btn-xs{padding:3px 9px;font-size:11px;border-radius:5px;}
-input,select,textarea{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:9px 13px;color:var(--text);font-size:14px;font-family:'Sarabun',sans-serif;outline:none;transition:border-color .2s;}
+.btn-sm{padding:5px 11px;font-size:12px;border-radius:6px;}
+.btn-xs{padding:3px 8px;font-size:11px;border-radius:5px;}
+
+/* FORM */
+input,select,textarea{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-size:14px;font-family:'Sarabun',sans-serif;outline:none;transition:border-color .2s;}
 input:focus,select:focus,textarea:focus{border-color:var(--accent);}
 select option{background:var(--surface2);}
-label.lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:5px;}
-.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;}
+.lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:4px;}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:13px;}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;}
 .b-attend{background:rgba(34,197,94,.12);color:var(--green);}
 .b-late{background:rgba(245,158,11,.12);color:var(--yellow);}
 .b-absent{background:rgba(239,68,68,.12);color:var(--red);}
@@ -49,38 +72,1628 @@ label.lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:upper
 .b-cam-off{background:rgba(100,116,139,.12);color:var(--muted2);}
 .b-purple{background:rgba(124,109,250,.12);color:var(--accent2);}
 .b-none{background:var(--surface2);color:var(--muted);border:1px dashed var(--border2);}
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px;}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.b-done{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:9px;margin-bottom:18px;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;}
 .stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
-.stat-val{font-size:24px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
-.c-g{color:var(--green);} .c-y{color:var(--yellow);} .c-r{color:var(--red);} .c-b{color:var(--blue);} .c-p{color:var(--accent2);}
+.stat-val{font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+.c-g{color:var(--green);}.c-y{color:var(--yellow);}.c-r{color:var(--red);}.c-b{color:var(--blue);}.c-p{color:var(--accent2);}
+
+/* TABLE */
 .tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 table{width:100%;border-collapse:collapse;}
-th{text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface2);}
-td{padding:9px 14px;font-size:13px;border-bottom:1px solid rgba(37,42,69,.5);vertical-align:middle;}
+th{text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:9px 13px;border-bottom:1px solid var(--border);background:var(--surface2);}
+td{padding:8px 13px;font-size:13px;border-bottom:1px solid rgba(37,42,69,.5);vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:rgba(124,109,250,.04);}
-.toast{position:fixed;bottom:22px;right:22px;background:var(--surface);border:1px solid var(--green);color:var(--green);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);transform:translateY(70px);opacity:0;transition:all .3s;z-index:999;}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--green);color:var(--green);padding:10px 15px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);transform:translateY(70px);opacity:0;transition:all .3s;z-index:999;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.err{border-color:var(--red);color:var(--red);}
 .toast.warn{border-color:var(--yellow);color:var(--yellow);}
-.empty{text-align:center;padding:48px 20px;color:var(--muted);}
-.empty-ico{font-size:34px;margin-bottom:10px;opacity:.3;}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:16px;}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 20px;color:var(--muted);}
+.empty-ico{font-size:32px;margin-bottom:10px;opacity:.3;}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;padding:14px;}
 .modal-bg.show{display:flex;}
-.modal{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;}
-.modal h3{font-size:15px;font-weight:600;margin-bottom:16px;}
-.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
-.checkin-header{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;}
-.mtg-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px;}
-.mtg-btn{background:var(--surface2);border:1.5px solid var(--border2);border-radius:10px;padding:14px 16px;cursor:pointer;text-align:left;transition:all .2s;font-family:'Sarabun',sans-serif;}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:22px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:15px;}
+
+/* CHECK-IN */
+.checkin-header{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:18px;}
+.mtg-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin-bottom:14px;}
+.mtg-btn{background:var(--surface2);border:1.5px solid var(--border2);border-radius:10px;padding:12px 14px;cursor:pointer;text-align:left;transition:all .2s;font-family:'Sarabun',sans-serif;position:relative;}
 .mtg-btn:hover{border-color:var(--accent);background:rgba(124,109,250,.06);}
 .mtg-btn.selected{border-color:var(--accent);background:rgba(124,109,250,.1);box-shadow:0 0 0 1px var(--accent);}
-.mtg-btn .mb-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.mtg-btn .mb-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
 .mtg-btn .mb-sub{font-size:11px;color:var(--muted);}
-.mtg-btn .mb-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;}
+.mtg-done-badge{position:absolute;top:8px;right:8px;font-size:10px;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:2px 6px;font-weight:600;}
 .date-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.date-row input{flex:0 0 auto;}
-.checkin-list{display:flex;flex-direction:column;gap:8px;}
-.checkin-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;transition:border-color .2s;}
-.checkin-row.
+.checkin-list{display:flex;flex-direction:column;gap:7px;}
+.checkin-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:border-color .2s;}
+.checkin-row.status-attend{border-left:3px solid var(--green);}
+.checkin-row.status-late{border-left:3px solid var(--yellow);}
+.checkin-row.status-absent{border-left:3px solid var(--red);}
+.checkin-row.status-none{border-left:3px solid var(--border2);}
+.cr-name{font-size:14px;font-weight:600;min-width:80px;}
+.cr-line{font-size:11px;color:var(--muted);}
+.cr-actions{display:flex;gap:5px;align-items:center;margin-left:auto;flex-wrap:wrap;}
+.status-btns{display:flex;gap:4px;}
+.cam-btns{display:flex;gap:4px;}
+.note-input{width:140px;padding:4px 9px;font-size:12px;border-radius:6px;}
+.ci-summary-bar{display:flex;gap:14px;padding:10px 16px;background:var(--surface2);border-radius:8px;margin-bottom:14px;flex-wrap:wrap;}
+.csb-item{font-size:13px;display:flex;align-items:center;gap:5px;}
+
+/* SUMMARY */
+.filter-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;gap:11px;flex-wrap:wrap;align-items:flex-end;}
+.filter-bar .fg{margin-bottom:0;}
+.seg-tabs{display:flex;border:1px solid var(--border2);border-radius:8px;overflow:hidden;}
+.seg-tab{padding:6px 14px;font-size:12px;font-weight:600;background:transparent;border:none;color:var(--muted);cursor:pointer;font-family:'Sarabun',sans-serif;transition:all .2s;}
+.seg-tab.active{background:var(--accent);color:#fff;}
+.mtg-tbl{width:100%;border-collapse:collapse;}
+.mtg-tbl th,.mtg-tbl td{padding:7px 11px;border:1px solid var(--border);font-size:12px;text-align:center;}
+.mtg-tbl th{background:var(--surface2);font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;}
+.mtg-tbl td:first-child{text-align:left;font-weight:600;min-width:90px;}
+.cell-g{color:var(--green);font-weight:700;}.cell-y{color:var(--yellow);font-weight:700;}.cell-r{color:var(--red);font-weight:700;}.cell-na{color:var(--border2);}
+
+/* RANKING */
+.ranking-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.rank-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.rank-num{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700;width:28px;text-align:center;flex-shrink:0;}
+.rank-num.r1{color:#f59e0b;}.rank-num.r2{color:#94a3b8;}.rank-num.r3{color:#fb923c;}
+.rank-name{font-weight:600;font-size:14px;flex:1;}
+.rank-bar-wrap{width:120px;background:var(--border);border-radius:4px;height:6px;flex-shrink:0;}
+.rank-bar{height:6px;border-radius:4px;transition:width .4s;}
+.rank-pct{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;width:42px;text-align:right;flex-shrink:0;}
+
+/* CALENDAR */
+.calendar-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:18px;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-title{font-size:15px;font-weight:600;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day-label{text-align:center;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;padding:4px 0;}
+.cal-cell{min-height:56px;border-radius:8px;padding:5px;background:var(--surface2);border:1px solid var(--border);font-size:11px;cursor:default;transition:border-color .2s;}
+.cal-cell.empty{background:transparent;border-color:transparent;}
+.cal-cell.today{border-color:var(--accent);}
+.cal-cell .cal-date{font-size:12px;font-weight:600;margin-bottom:3px;color:var(--muted2);}
+.cal-cell.today .cal-date{color:var(--accent2);}
+.cal-dot{font-size:9px;padding:1px 4px;border-radius:4px;margin-top:2px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dot-done{background:rgba(34,197,94,.15);color:var(--green);}
+.dot-pending{background:rgba(245,158,11,.12);color:var(--yellow);}
+
+/* MEMBER */
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;}
+.member-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px;}
+.mc-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.mc-sub{font-size:12px;color:var(--muted);margin-bottom:9px;}
+.mc-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:9px;}
+.mc-actions{display:flex;gap:5px;}
+
+/* ORG */
+.org-outer{overflow:auto;width:100%;min-height:calc(100vh - 160px);background:var(--bg);cursor:grab;user-select:none;}
+.org-outer.grabbing{cursor:grabbing;}
+.org-wrap{display:inline-flex;padding:40px;min-width:max-content;transform-origin:top left;transition:transform .15s;}
+.org-node{border:1.5px solid var(--border2);border-radius:10px;padding:10px 16px;text-align:center;min-width:110px;position:relative;}
+.org-node.root-node{border-color:var(--accent);background:rgba(124,109,250,.1);}
+.org-node .nn{font-weight:700;font-size:13px;}
+.org-node .ns{font-size:10px;margin-top:3px;font-weight:600;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:4px;}
+.org-connector-v{width:1px;height:20px;background:var(--border2);margin:0 auto;}
+.org-children-wrap{display:flex;gap:24px;align-items:flex-start;position:relative;}
+.org-children-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--border2);}
+.org-child{display:flex;flex-direction:column;align-items:center;}
+.org-child::before{content:'';width:1px;height:14px;background:var(--border2);}
+.zoom-controls{display:flex;gap:6px;align-items:center;}
+.zoom-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:7px;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:all .15s;}
+.zoom-btn:hover{border-color:var(--accent);color:var(--accent2);}
+.zoom-label{font-size:12px;color:var(--muted);min-width:38px;text-align:center;font-family:'IBM Plex Mono',monospace;}
+
+@media(max-width:600px){
+  .page{padding:11px;}
+  header{padding:11px 13px;}
+  .mtg-selector{grid-template-columns:1fr 1fr;}
+  .cr-actions{width:100%;}
+  .note-input{width:110px;}
+  .rank-bar-wrap{width:70px;}
+  .cal-cell{min-height:44px;}
+}
+
+/* ACTIVE/INACTIVE TABS */
+.member-filter-tabs{display:flex;gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:14px;}
+.mft{padding:6px 16px;font-size:12px;font-weight:600;background:transparent;border:none;color:var(--muted);cursor:pointer;font-family:'Sarabun',sans-serif;transition:all .2s;}
+.mft.active{background:var(--accent);color:#fff;}
+.member-card.inactive{opacity:0.5;border-style:dashed;}
+.inactive-badge{font-size:10px;background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.3);border-radius:5px;padding:1px 6px;font-weight:600;}
+.active-badge{font-size:10px;background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);border-radius:5px;padding:1px 6px;font-weight:600;}
+
+/* SPECIAL EVENT */
+.special-card{background:var(--card);border:1px solid rgba(251,146,60,.35);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.special-card .se-name{font-weight:600;font-size:14px;color:#fb923c;}
+.special-card .se-date{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;}
+.se-badge{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.3);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;}
+.b-optional{background:rgba(100,116,139,.12);color:var(--muted2);border:1px dashed var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <div class="lock-logo">🔐</div>
+    <div class="lock-title">Deniel's Team</div>
+    <div class="lock-sub">ใส่รหัสผ่านเพื่อเข้าใช้งาน</div>
+    <input type="password" id="pw-input" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPw()"/>
+    <button class="btn btn-primary" style="width:100%" onclick="checkPw()">เข้าสู่ระบบ</button>
+    <div class="lock-err" id="pw-err"></div>
+    <div style="margin-top:16px;font-size:11px;color:var(--muted);">รหัสเริ่มต้น: <span style="font-family:monospace;color:var(--accent2)">1234</span></div>
+  </div>
+</div>
+
+<header>
+  <div class="logo">👥</div>
+  <h1>Deniel's Team</h1>
+  <div class="hdr-r">
+    <span class="lock-indicator">🔒 Admin</span>
+    <button class="btn btn-ghost btn-sm" onclick="openPwChange()">🔑 เปลี่ยนรหัส</button>
+    <button class="btn btn-success btn-sm" onclick="loadRealMembers()">👥 โหลดรายชื่อ</button>
+    <button class="btn btn-warn btn-sm" onclick="openArchiveModal()">📦 Archive</button><button class="btn btn-danger btn-sm" onclick="clearAll()">🗑</button>
+  </div>
+</header>
+
+<div class="nav">
+  <button class="tab active" onclick="gotoTab('checkin',this)">✅ เช็คชื่อ</button>
+  <button class="tab" onclick="gotoTab('summary',this)">📊 สรุป</button>
+  <button class="tab" onclick="gotoTab('calendar',this)">📅 ปฏิทิน</button>
+  <button class="tab" onclick="gotoTab('members',this)">👤 สมาชิก</button>
+  <button class="tab" onclick="gotoTab('special',this)">🎯 พิเศษ</button>
+  <button class="tab" onclick="gotoTab('org',this)">🌳 สายงาน</button>
+  <button class="tab" onclick="gotoTab('settings',this)">⚙️ ตั้งค่า</button>
+</div>
+
+<!-- CHECK-IN -->
+<div class="page active" id="page-checkin">
+  <div class="checkin-header">
+    <label class="lbl" style="margin-bottom:11px;">① เลือกการประชุม</label>
+    <div class="mtg-selector" id="mtg-selector"></div>
+    <div class="date-row" id="date-row" style="display:none;">
+      <div><label class="lbl">② วันที่</label><input type="date" id="ci-date"/></div>
+      <button class="btn btn-primary" onclick="startCheckin()" style="margin-top:17px;">โหลดรายชื่อ →</button>
+    </div>
+  </div>
+  <div id="checkin-section" style="display:none;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+      <div id="ci-session-label" style="font-size:14px;font-weight:600;"></div>
+      <div id="ci-saved-badge" style="display:none;"><span class="badge b-done">✅ บันทึกแล้ว</span></div>
+      <div style="margin-left:auto;display:flex;gap:7px;">
+        <button class="btn btn-ghost btn-sm" onclick="markAll('attend')">✅ เข้าทั้งหมด</button>
+        <button class="btn btn-ghost btn-sm" onclick="markAll('absent')">❌ ขาดทั้งหมด</button>
+        <button class="btn btn-primary btn-sm" onclick="saveCheckin()">💾 บันทึก</button>
+      </div>
+    </div>
+    <div class="ci-summary-bar" id="ci-summary-bar"></div>
+    <div class="checkin-list" id="checkin-list"></div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="page" id="page-summary">
+  <div class="filter-bar">
+    <div class="fg">
+      <label class="lbl">มุมมอง</label>
+      <div class="seg-tabs">
+        <button class="seg-tab active" onclick="setSumView('month',this)">รายเดือน</button>
+        <button class="seg-tab" onclick="setSumView('meeting',this)">ต่อประชุม</button>
+        <button class="seg-tab" onclick="setSumView('week',this)">รายสัปดาห์</button>
+      </div>
+    </div>
+    <div class="fg"><label class="lbl">เดือน</label><select id="f-month"></select></div>
+    <div class="fg"><label class="lbl">ปี</label><select id="f-year"></select></div>
+    <div class="fg" id="fw-mtgtype" style="display:none;">
+      <label class="lbl">ประเภท</label>
+      <select id="f-mtgtype" onchange="buildMtgDateSel();renderSummary()">
+        <option value="">ทุกประเภท</option>
+        <option value="begin-online">Begin Online</option>
+        <option value="bridge-online">Bridge Online</option>
+        <option value="center-bkk">Center BKK/KKC</option>
+        <option value="center-korat">Center Korat</option>
+        <option value="begin-onsite">Begin Onsite</option>
+      </select>
+    </div>
+    <div class="fg" id="fw-mtgdate" style="display:none;">
+      <label class="lbl">วันที่</label>
+      <select id="f-mtgdate" onchange="renderSummary()"><option value="">ทุกวันที่</option></select>
+    </div>
+    <div class="fg" id="fw-week" style="display:none;"><label class="lbl">สัปดาห์</label><select id="f-week"></select></div>
+    <div class="fg">
+      <label class="lbl">ประเภทงาน</label>
+      <select id="f-eventtype" onchange="renderSummary()">
+        <option value="">ทั้งหมด</option>
+        <option value="regular">Regular เท่านั้น</option>
+        <option value="special">Special เท่านั้น</option>
+      </select>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="renderSummary()" style="margin-top:17px;">🔄</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportCSV()" style="margin-top:17px;">⬇ CSV</button>
+  </div>
+  <div class="stats-row" id="sum-stats"></div>
+
+  <!-- RANKING -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">🏆 Ranking</div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-ghost btn-sm" id="rank-btn-attend" onclick="setRankMode('attend',this)">✅ เข้ามาก</button>
+        <button class="btn btn-ghost btn-sm" id="rank-btn-absent" onclick="setRankMode('absent',this)">❌ ขาดเยอะ</button>
+        <button class="btn btn-ghost btn-sm" id="rank-btn-late" onclick="setRankMode('late',this)">⏰ สายเยอะ</button>
+      </div>
+    </div>
+    <div id="ranking-list" class="ranking-list"></div>
+  </div>
+
+  <!-- PER-MEMBER TABLE -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;" id="sum-table-title">สรุปรายคน</div>
+    <div style="overflow-x:auto;"><table class="mtg-tbl" id="sum-table"></table></div>
+  </div>
+
+  <div class="tbl-wrap"><div id="sum-records"></div></div>
+</div>
+
+<!-- CALENDAR -->
+<div class="page" id="page-calendar">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+    <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">ปฏิทินประชุม</span>
+    <select id="cal-month" onchange="renderCalendar()"></select>
+    <select id="cal-year" onchange="renderCalendar()"></select>
+  </div>
+  <div class="calendar-wrap">
+    <div class="cal-grid" id="cal-day-labels"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+  <!-- Session list below calendar -->
+  <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Session ในเดือนนี้</div>
+  <div id="cal-session-list"></div>
+</div>
+
+<!-- MEMBERS -->
+<div class="page" id="page-members">
+  <div style="display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+    <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">สมาชิก</span>
+    <button class="btn btn-primary btn-sm" onclick="openMModal()">+ เพิ่มสมาชิก</button>
+  </div>
+  <div class="member-filter-tabs">
+    <button class="mft active" onclick="setMemberFilter('active',this)">🟢 Active</button>
+    <button class="mft" onclick="setMemberFilter('inactive',this)">⚫ Inactive</button>
+    <button class="mft" onclick="setMemberFilter('all',this)">👥 ทั้งหมด</button>
+  </div>
+  <div class="member-grid" id="member-grid"></div>
+</div>
+
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div style="max-width:560px;">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px;">⚙️ ตั้งค่าระบบ</div>
+
+    <!-- LINE Settings -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">💬 LINE Notification</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:18px;">ตั้งค่าเพื่อส่งสรุปเช็คชื่อเข้ากลุ่ม LINE อัตโนมัติ</div>
+
+      <div class="fg">
+        <label class="lbl">Channel Access Token</label>
+        <div style="display:flex;gap:8px;">
+          <input type="password" id="s-line-token" placeholder="วาง Token ที่นี่..." style="flex:1;"/>
+          <button class="btn btn-ghost btn-sm" onclick="toggleTokenView()">👁</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="lbl">Group ID</label>
+        <input type="text" id="s-line-group" placeholder="เช่น Cde6ebb8e1ac4b9d0a92d0..."/>
+      </div>
+      <div class="fg">
+        <label class="lbl">Backend URL (Google Apps Script)</label>
+        <input type="text" id="s-line-backend" placeholder="https://script.google.com/macros/s/..."/>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">URL ของ Apps Script ที่ใช้ส่งข้อความไป LINE</div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="saveLineSettings()">💾 บันทึก</button>
+        <button class="btn btn-ghost btn-sm" onclick="testLineMsg()">🧪 ทดสอบส่ง</button>
+      </div>
+      <div id="line-status" style="margin-top:10px;font-size:12px;min-height:18px;"></div>
+    </div>
+
+    <!-- LINE Send toggle -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">🔔 การแจ้งเตือน</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+        <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+          <span style="font-size:13px;">ส่ง LINE หลังบันทึกเช็คชื่อ Regular</span>
+          <input type="checkbox" id="s-notify-regular" style="width:18px;height:18px;accent-color:var(--accent)"/>
+        </label>
+        <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+          <span style="font-size:13px;">ส่ง LINE หลังบันทึกเช็คชื่อพิเศษ</span>
+          <input type="checkbox" id="s-notify-special" style="width:18px;height:18px;accent-color:var(--accent)"/>
+        </label>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveNotifySettings()" style="margin-top:14px;">💾 บันทึก</button>
+    </div>
+
+    <!-- Info -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📊 ข้อมูลระบบ</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted2);" id="sys-info"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIAL EVENTS -->
+<div class="page" id="page-special">
+  <div style="display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+    <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">ประชุมพิเศษ</span>
+    <button class="btn btn-primary btn-sm" onclick="openSpecialModal()">+ สร้างประชุมพิเศษ</button>
+  </div>
+  <div id="special-list"></div>
+</div>
+
+<!-- ORG -->
+<div class="page" id="page-org" style="max-width:100%;padding:14px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">แผนภูมิสายงาน</div>
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="orgZoom(-0.15)">−</button>
+      <span class="zoom-label" id="zoom-label">100%</span>
+      <button class="zoom-btn" onclick="orgZoom(+0.15)">+</button>
+      <button class="zoom-btn" onclick="orgReset()" title="Reset">⌂</button>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-left:4px;">Scroll = เลื่อน · Pinch/Ctrl+Scroll = ซูม · ลาก = เคลื่อน</div>
+  </div>
+  <div class="org-outer" id="org-outer">
+    <div class="org-wrap" id="org-wrap"></div>
+  </div>
+</div>
+
+<!-- MODAL: MEMBER -->
+<div class="modal-bg" id="modal-m">
+  <div class="modal">
+    <h3 id="mmodal-title">เพิ่มสมาชิก</h3>
+    <div class="fg"><label class="lbl">ชื่อเล่น</label><input id="m-name" placeholder="เช่น โก้"/></div>
+    <div class="fg"><label class="lbl">สายงาน</label><input id="m-line" placeholder="เช่น สาย A"/></div>
+    <div class="fg"><label class="lbl">Upline</label><select id="m-upline"></select></div>
+    <div class="fg">
+      <label class="lbl">ประชุมที่ต้องเข้า</label>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-top:3px;" id="m-mtg-checks"></div>
+    </div>
+    <div style="display:flex;gap:7px;margin-top:4px;">
+      <button class="btn btn-primary" onclick="saveMember()">บันทึก</button>
+      <button class="btn btn-ghost" onclick="closeMModal()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: CHANGE PASSWORD -->
+<div class="modal-bg" id="modal-pw">
+  <div class="modal">
+    <h3>🔑 เปลี่ยนรหัสผ่าน</h3>
+    <div class="fg"><label class="lbl">รหัสเดิม</label><input type="password" id="pw-old" placeholder="••••••"/></div>
+    <div class="fg"><label class="lbl">รหัสใหม่</label><input type="password" id="pw-new" placeholder="••••••"/></div>
+    <div class="fg"><label class="lbl">ยืนยันรหัสใหม่</label><input type="password" id="pw-confirm" placeholder="••••••"/></div>
+    <div class="lock-err" id="pw-change-err"></div>
+    <div style="display:flex;gap:7px;margin-top:12px;">
+      <button class="btn btn-primary" onclick="changePw()">บันทึก</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('modal-pw').classList.remove('show')">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ARCHIVE -->
+<div class="modal-bg" id="modal-archive">
+  <div class="modal">
+    <h3>📦 Export & Archive ข้อมูล</h3>
+    <p style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.6">เลือกปีที่อยากจัดเก็บ — ระบบจะ download CSV ให้เก็บไว้ก่อน แล้วค่อยลบออกจาก browser</p>
+    <div class="fg">
+      <label class="lbl">เลือกปี</label>
+      <select id="archive-year"></select>
+    </div>
+    <div id="archive-preview" style="background:var(--surface2);border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:var(--muted2);min-height:48px;"></div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;">
+      <button class="btn btn-warn" onclick="doExportArchive()">⬇ Export CSV ก่อน</button>
+      <button class="btn btn-danger" onclick="doDeleteArchive()">🗑 ลบปีนี้ออก</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('modal-archive').classList.remove('show')">ยกเลิก</button>
+    </div>
+    <p style="font-size:11px;color:var(--red);margin-top:10px;">⚠️ แนะนำให้ Export ก่อนเสมอ ข้อมูลที่ลบแล้วกู้คืนไม่ได้</p>
+  </div>
+</div>
+
+<!-- MODAL: SPECIAL EVENT -->
+<div class="modal-bg" id="modal-special">
+  <div class="modal">
+    <h3 id="se-modal-title">🎯 สร้างประชุมพิเศษ</h3>
+    <div class="fg">
+      <label class="lbl">Template (ไม่บังคับ)</label>
+      <select id="se-template" onchange="applySeTemplate()">
+        <option value="">— กรอกเอง —</option>
+        <option value="ติว">📚 ติว</option>
+        <option value="Beyond">🌟 Beyond</option>
+      </select>
+    </div>
+    <div class="fg"><label class="lbl">ชื่องาน</label><input id="se-name" placeholder="เช่น Rally เดือนมิ.ย."/></div>
+    <div class="fg"><label class="lbl">วันที่</label><input type="date" id="se-date"/></div>
+    <div class="fg"><label class="lbl">สถานที่/ลิงก์</label><input id="se-location" placeholder="เช่น Zoom / Central World"/></div>
+    <div class="fg"><label class="lbl">หมายเหตุ</label><input id="se-note" placeholder="รายละเอียดเพิ่มเติม (ถ้ามี)"/></div>
+    <div style="display:flex;gap:7px;margin-top:4px;">
+      <button class="btn btn-primary" onclick="saveSpecialEvent()">สร้าง</button>
+      <button class="btn btn-ghost" onclick="closeSpecialModal()">ยกเลิก</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONSTANTS
+// ============================================================
+const MTG={
+  'begin-online' :{label:'Begin Online',  sub:'ทุกจันทร์ 19:00-21:00',  color:'#818cf8',online:true},
+  'bridge-online':{label:'Bridge Online', sub:'ทุกจันทร์ 19:00-21:00',  color:'#34d399',online:true},
+  'center-bkk'   :{label:'Center BKK/KKC',sub:'ทุกศุกร์ 19:00-21:00',  color:'#fb923c',online:false},
+  'center-korat' :{label:'Center Korat',  sub:'ทุกพฤหัส 19:00-21:00',  color:'#f472b6',online:false},
+  'begin-onsite' :{label:'Begin Onsite',  sub:'ทุกอาทิตย์ 13:00-15:00',color:'#facc15',online:false},
+};
+const MTG_KEYS=Object.keys(MTG);
+const TH_MONTHS=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const TH_DAYS=['อา','จ','อ','พ','พฤ','ศ','ส'];
+const DEFAULT_PW='1234';
+
+// ============================================================
+// STATE
+// ============================================================
+let members=JSON.parse(localStorage.getItem('dt-members')||'[]');
+let records=JSON.parse(localStorage.getItem('dt-records')||'[]');
+let ciState={};
+let selectedMtg='';
+let sumView='month';
+let rankMode='attend';
+let editMId=null;
+let memberFilter='active';
+let specialEvents=JSON.parse(localStorage.getItem('dt-special')||'[]');
+let currentSpecialEvent=null;
+
+// ============================================================
+// AUTH
+// ============================================================
+function checkPw(){
+  const pw=document.getElementById('pw-input').value;
+  const stored=localStorage.getItem('dt-pw')||DEFAULT_PW;
+  if(pw===stored){
+    document.getElementById('lock-screen').style.display='none';
+    sessionStorage.setItem('dt-unlocked','1');
+    initApp();
+  } else {
+    document.getElementById('pw-err').textContent='รหัสผ่านไม่ถูกต้อง';
+    document.getElementById('pw-input').value='';
+    setTimeout(()=>document.getElementById('pw-err').textContent='',2000);
+  }
+}
+function openPwChange(){document.getElementById('modal-pw').classList.add('show');}
+function changePw(){
+  const old=document.getElementById('pw-old').value;
+  const nw=document.getElementById('pw-new').value;
+  const cf=document.getElementById('pw-confirm').value;
+  const stored=localStorage.getItem('dt-pw')||DEFAULT_PW;
+  const err=document.getElementById('pw-change-err');
+  if(old!==stored){err.textContent='รหัสเดิมไม่ถูกต้อง';return;}
+  if(nw.length<4){err.textContent='รหัสใหม่ต้องมีอย่างน้อย 4 ตัว';return;}
+  if(nw!==cf){err.textContent='รหัสใหม่ไม่ตรงกัน';return;}
+  localStorage.setItem('dt-pw',nw);
+  document.getElementById('modal-pw').classList.remove('show');
+  ['pw-old','pw-new','pw-confirm'].forEach(id=>document.getElementById(id).value='');
+  err.textContent='';
+  toast('✅ เปลี่ยนรหัสผ่านแล้ว');
+}
+// Auto-unlock if same session
+if(sessionStorage.getItem('dt-unlocked')==='1'){
+  document.getElementById('lock-screen').style.display='none';
+  initApp();
+}
+document.getElementById('pw-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPw();});
+
+function initApp(){
+  document.getElementById('ci-date').value=todayStr();
+  buildMtgSelector();
+  buildDateSelects();
+  buildCalSelects();
+  renderMembers();
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function gotoTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('page-'+id).classList.add('active');
+  if(id==='summary'){buildDateSelects();renderSummary();}
+  if(id==='members')renderMembers();
+  if(id==='org')renderOrg();
+  if(id==='special'){renderSpecialList();}
+  if(id==='settings'){loadLineSettings();}
+  if(id==='calendar'){buildCalSelects();renderCalendar();}
+}
+
+// ============================================================
+// CHECK-IN
+// ============================================================
+function buildMtgSelector(){
+  const el=document.getElementById('mtg-selector');
+  el.innerHTML=MTG_KEYS.map(k=>{
+    // Count how many dates have been checked for this meeting type
+    const doneDates=[...new Set(records.filter(r=>r.type===k).map(r=>r.date))].length;
+    return`<button class="mtg-btn" onclick="selectMtg('${k}',this)">
+      <div class="mb-label"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${MTG[k].color};margin-right:6px;"></span>${MTG[k].label}</div>
+      <div class="mb-sub">${MTG[k].sub} ${MTG[k].online?'🌐':'📍'}</div>
+      ${doneDates>0?`<span class="mtg-done-badge">${doneDates} sessions</span>`:''}
+    </button>`;
+  }).join('');
+}
+
+function selectMtg(key,el){
+  selectedMtg=key;
+  document.querySelectorAll('.mtg-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('date-row').style.display='flex';
+  document.getElementById('checkin-section').style.display='none';
+  // Auto-check if this date+type already saved
+  const date=document.getElementById('ci-date').value;
+  checkSavedBadge(key,date);
+}
+
+function checkSavedBadge(type,date){
+  if(!type||!date)return;
+  const eligible=members.filter(m=>(m.meetings||[]).includes(type));
+  const hasSaved=records.some(r=>r.type===type&&r.date===date&&eligible.map(m=>m.id).includes(r.memberId));
+  document.getElementById('ci-saved-badge').style.display=hasSaved?'inline-flex':'none';
+}
+
+function startCheckin(){
+  if(!selectedMtg)return toast('เลือกการประชุมก่อน','err');
+  const date=document.getElementById('ci-date').value;
+  if(!date)return toast('ระบุวันที่ด้วย','err');
+  const eligible=members.filter(m=>(m.meetings||[]).includes(selectedMtg));
+  if(!eligible.length)return toast('ยังไม่มีสมาชิกที่กำหนดประชุมนี้','warn');
+  ciState={};
+  eligible.forEach(m=>{
+    const ex=records.find(r=>r.memberId===m.id&&r.type===selectedMtg&&r.date===date);
+    ciState[m.id]=ex?{status:ex.status,cam:ex.cam||'na',note:ex.note||''}:{status:'',cam:'na',note:''};
+  });
+  const mtg=MTG[selectedMtg];
+  document.getElementById('ci-session-label').innerHTML=
+    `<span style="color:${mtg.color};font-weight:700;">${mtg.label}</span> &nbsp;·&nbsp; ${fmtDate(date)}`;
+  checkSavedBadge(selectedMtg,date);
+  renderCheckinList(eligible,date);
+  document.getElementById('checkin-section').style.display='block';
+}
+
+// Update saved badge when date changes
+document.getElementById('ci-date').addEventListener('change',function(){
+  if(selectedMtg)checkSavedBadge(selectedMtg,this.value);
+});
+
+function renderCheckinList(eligible){
+  const isOnline=MTG[selectedMtg].online;
+  document.getElementById('checkin-list').innerHTML=eligible.map(m=>{
+    const s=ciState[m.id];
+    return`<div class="checkin-row status-${s.status||'none'}" id="crow-${m.id}">
+      <div>
+        <div class="cr-name">${m.name}${(()=>{const u=members.find(x=>x.id===m.uplineId);return u?' <span style="font-size:11px;font-weight:400;color:var(--muted)">('+u.name+')</span>':'';})()}</div>
+        <div class="cr-line">${m.line||'—'}</div>
+      </div>
+      <div class="cr-actions">
+        <div class="status-btns">
+          <button class="btn btn-success btn-xs ${s.status==='attend'?'active-btn':''}" onclick="setCiStatus(${m.id},'attend',this)">✅ เข้า</button>
+          <button class="btn btn-warn btn-xs ${s.status==='late'?'active-btn':''}" onclick="setCiStatus(${m.id},'late',this)">⏰ สาย</button>
+          <button class="btn btn-danger btn-xs ${s.status==='absent'?'active-btn':''}" onclick="setCiStatus(${m.id},'absent',this)">❌ ขาด</button>
+        </div>
+        ${isOnline?`<div class="cam-btns">
+          <button class="btn btn-ghost btn-xs ${s.cam==='on'?'active-btn':''}" onclick="setCiCam(${m.id},'on',this)">📹</button>
+          <button class="btn btn-ghost btn-xs ${s.cam==='off'?'active-btn':''}" onclick="setCiCam(${m.id},'off',this)">🚫</button>
+        </div>`:''}
+        <input class="note-input" type="text" placeholder="หมายเหตุ..." value="${s.note}" oninput="ciState[${m.id}].note=this.value"/>
+      </div>
+    </div>`;
+  }).join('');
+  updateCiSummary(eligible);
+}
+
+function setCiStatus(memberId,status,el){
+  ciState[memberId].status=status;
+  const row=document.getElementById('crow-'+memberId);
+  row.className=`checkin-row status-${status}`;
+  row.querySelectorAll('.status-btns .btn').forEach(b=>b.classList.remove('active-btn'));
+  el.classList.add('active-btn');
+  updateCiSummary(members.filter(m=>(m.meetings||[]).includes(selectedMtg)));
+}
+function setCiCam(memberId,cam,el){
+  ciState[memberId].cam=cam;
+  document.getElementById('crow-'+memberId).querySelectorAll('.cam-btns .btn').forEach(b=>b.classList.remove('active-btn'));
+  el.classList.add('active-btn');
+}
+function markAll(status){
+  if(selectedMtg==='__special__'){
+    const eligible=members.filter(m=>!m.inactive);
+    // For special: only allow attend/absent in markAll (not optional)
+    const s = (status==='late') ? 'absent' : status;
+    eligible.forEach(m=>{ if(ciState[m.id].status!=='optional') ciState[m.id].status=s; });
+    renderSpecialCheckinList(eligible);return;
+  }
+  const eligible=members.filter(m=>(m.meetings||[]).includes(selectedMtg));
+  const isOnline=MTG[selectedMtg]?.online;
+  eligible.forEach(m=>{
+    ciState[m.id].status=status;
+    if(isOnline && status==='attend') ciState[m.id].cam='on';
+    if(isOnline && status==='absent') ciState[m.id].cam='na';
+  });
+  renderCheckinList(eligible);
+}
+function updateCiSummary(eligible){
+  const vals=eligible.map(m=>ciState[m.id].status);
+  const a=vals.filter(s=>s==='attend').length;
+  const l=vals.filter(s=>s==='late').length;
+  const ab=vals.filter(s=>s==='absent').length;
+  const p=vals.filter(s=>!s).length;
+  document.getElementById('ci-summary-bar').innerHTML=
+    `<div class="csb-item"><span class="badge b-attend">✅ ${a}</span> เข้าร่วม</div>
+     <div class="csb-item"><span class="badge b-late">⏰ ${l}</span> สาย</div>
+     <div class="csb-item"><span class="badge b-absent">❌ ${ab}</span> ขาด</div>
+     ${p?`<div class="csb-item"><span class="badge b-none">⬜ ${p}</span> ยังไม่เช็ค</div>`:''}
+     <div class="csb-item" style="margin-left:auto;font-size:12px;color:var(--muted);">รวม ${eligible.length} คน</div>`;
+}
+function saveCheckin(){
+  if(selectedMtg==='__special__'){saveSpecialCheckin();return;}
+  const date=document.getElementById('ci-date').value;
+  const eligible=members.filter(m=>(m.meetings||[]).includes(selectedMtg));
+  const unchecked=eligible.filter(m=>!ciState[m.id].status);
+  if(unchecked.length&&!confirm(`ยังมี ${unchecked.length} คนที่ยังไม่ได้เช็ค บันทึกต่อเลยไหม?`))return;
+  records=records.filter(r=>!(r.type===selectedMtg&&r.date===date&&eligible.map(m=>m.id).includes(r.memberId)));
+  eligible.forEach(m=>{
+    const s=ciState[m.id];
+    if(!s.status)return;
+    records.unshift({id:Date.now()+Math.floor(Math.random()*9999),memberId:m.id,memberName:m.name,memberLine:m.line||'',type:selectedMtg,date,status:s.status,cam:MTG[selectedMtg].online?s.cam:'na',note:s.note||'',savedAt:new Date().toISOString()});
+  });
+  records.sort((a,b)=>b.date.localeCompare(a.date));
+  save();
+  buildMtgSelector();
+  checkSavedBadge(selectedMtg,date);
+  const savedCount = eligible.filter(m=>ciState[m.id].status).length;
+  toast(`✅ บันทึก ${savedCount} คนสำเร็จ!`);
+  // Send LINE if enabled
+  if(localStorage.getItem('dt-notify-regular')==='1') {
+    const msg = buildLineMsg(selectedMtg, date, eligible);
+    sendLineMsg(msg).then(ok => {
+      if(ok) toast('💬 ส่ง LINE แล้ว!');
+      else toast('⚠️ บันทึกแล้วแต่ส่ง LINE ไม่สำเร็จ','warn');
+    });
+  }
+}
+
+// ============================================================
+// SUMMARY
+// ============================================================
+function buildDateSelects(){
+  const mSel=document.getElementById('f-month');
+  const ySel=document.getElementById('f-year');
+  if(!mSel||!ySel||mSel.options.length)return;
+  const now=new Date();
+  TH_MONTHS.forEach((n,i)=>{const o=document.createElement('option');o.value=i+1;o.textContent=n;mSel.appendChild(o);});
+  mSel.value=now.getMonth()+1;
+  for(let y=now.getFullYear();y>=now.getFullYear()-2;y--){const o=document.createElement('option');o.value=y;o.textContent=y;ySel.appendChild(o);}
+  ySel.value=now.getFullYear();
+}
+function setSumView(v,el){
+  sumView=v;
+  document.querySelectorAll('.seg-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('fw-mtgtype').style.display=(v==='meeting')?'':'none';
+  document.getElementById('fw-mtgdate').style.display=(v==='meeting')?'':'none';
+  document.getElementById('fw-week').style.display=(v==='week')?'':'none';
+  if(v==='week')buildWeekSel();
+  if(v==='meeting')buildMtgDateSel();
+  renderSummary();
+}
+function buildWeekSel(){
+  const month=+document.getElementById('f-month').value;
+  const year=+document.getElementById('f-year').value;
+  const wSel=document.getElementById('f-week');wSel.innerHTML='';
+  const dim=new Date(year,month,0).getDate();
+  let wk=1,d=1;
+  while(d<=dim){
+    const end=Math.min(d+6,dim);
+    const o=document.createElement('option');
+    o.value=`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}|${year}-${String(month).padStart(2,'0')}-${String(end).padStart(2,'0')}`;
+    o.textContent=`สัปดาห์ที่ ${wk} (${d}–${end} ${TH_MONTHS[month-1]})`;
+    wSel.appendChild(o);d+=7;wk++;
+  }
+}
+function buildMtgDateSel(){
+  const month=+document.getElementById('f-month').value;
+  const year=+document.getElementById('f-year').value;
+  const fMtg=document.getElementById('f-mtgtype').value;
+  const dSel=document.getElementById('f-mtgdate');
+  const cur=dSel.value;
+  const dates=[...new Set(records.filter(r=>{const[y,m]=r.date.split('-');return+y===year&&+m===month&&(!fMtg||r.type===fMtg);}).map(r=>r.date))].sort().reverse();
+  dSel.innerHTML='<option value="">ทุกวันที่</option>';
+  dates.forEach(d=>{const o=document.createElement('option');o.value=d;const[y,mo,dd]=d.split('-');o.textContent=dd+'/'+mo+'/'+y;dSel.appendChild(o);});
+  if(cur&&dates.includes(cur))dSel.value=cur;
+}
+function getFiltered(){
+  const month=+document.getElementById('f-month').value;
+  const year=+document.getElementById('f-year').value;
+  const evType=(document.getElementById('f-eventtype')||{}).value||'';
+  function matchEvType(r){
+    if(evType==='regular')return r.type!=='__special__';
+    if(evType==='special')return r.type==='__special__';
+    return true;
+  }
+  if(sumView==='week'){const wVal=(document.getElementById('f-week').value||'').split('|');if(wVal.length===2)return records.filter(r=>r.date>=wVal[0]&&r.date<=wVal[1]&&matchEvType(r));}
+  if(sumView==='meeting'){const fMtg=document.getElementById('f-mtgtype').value;const fDate=document.getElementById('f-mtgdate').value;return records.filter(r=>{const[y,m]=r.date.split('-');return+y===year&&+m===month&&(!fMtg||r.type===fMtg)&&(!fDate||r.date===fDate);});}
+  return records.filter(r=>{const[y,m]=r.date.split('-');return+y===year&&+m===month&&matchEvType(r);});
+}
+function setRankMode(mode,el){
+  rankMode=mode;
+  document.querySelectorAll('[id^=rank-btn-]').forEach(b=>b.classList.remove('btn-primary'));
+  el.classList.add('btn-primary');
+  renderRanking(getFiltered());
+}
+function renderRanking(data){
+  const list=document.getElementById('ranking-list');
+  const memberStats=members.map(mem=>{
+    const md=data.filter(r=>r.memberId===mem.id);
+    const a=md.filter(r=>r.status==='attend').length;
+    const l=md.filter(r=>r.status==='late').length;
+    const ab=md.filter(r=>r.status==='absent').length;
+    const total=md.length;
+    const pct=total?Math.round((rankMode==='attend'?a:rankMode==='absent'?ab:l)/total*100):0;
+    return{...mem,a,l,ab,total,pct};
+  }).filter(m=>m.total>0);
+  memberStats.sort((a,b)=>b.pct-a.pct);
+  if(!memberStats.length){list.innerHTML='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">ยังไม่มีข้อมูล</div>';return;}
+  const maxPct=memberStats[0].pct||1;
+  const modeColor=rankMode==='attend'?'var(--green)':rankMode==='absent'?'var(--red)':'var(--yellow)';
+  list.innerHTML=memberStats.map((m,i)=>{
+    const cls=i===0?'r1':i===1?'r2':i===2?'r3':'';
+    return`<div class="rank-row">
+      <div class="rank-num ${cls}">${i+1}</div>
+      <div class="rank-name">${displayName(m)}<br><span style="font-size:11px;color:var(--muted)">${m.line||''}</span></div>
+      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${Math.round(m.pct/maxPct*100)}%;background:${modeColor}"></div></div>
+      <div class="rank-pct" style="color:${modeColor}">${m.pct}%</div>
+      <div style="font-size:11px;color:var(--muted);min-width:80px;text-align:right">✅${m.a} ⏰${m.l} ❌${m.ab}</div>
+    </div>`;
+  }).join('');
+}
+function renderSummary(){
+  buildDateSelects();
+  const data=getFiltered();
+  const a=data.filter(r=>r.status==='attend').length;
+  const l=data.filter(r=>r.status==='late').length;
+  const ab=data.filter(r=>r.status==='absent').length;
+  document.getElementById('sum-stats').innerHTML=
+    `<div class="stat"><div class="stat-lbl">ทั้งหมด</div><div class="stat-val c-p">${data.length}</div></div>
+     <div class="stat"><div class="stat-lbl">เข้าร่วม</div><div class="stat-val c-g">${a}</div></div>
+     <div class="stat"><div class="stat-lbl">สาย</div><div class="stat-val c-y">${l}</div></div>
+     <div class="stat"><div class="stat-lbl">ขาด</div><div class="stat-val c-r">${ab}</div></div>
+     <div class="stat"><div class="stat-lbl">% เข้า</div><div class="stat-val c-b">${data.length?Math.round(a/data.length*100):0}%</div></div>`;
+  renderRanking(data);
+  // Per-member table
+  const usedMtgs=sumView==='meeting'?(document.getElementById('f-mtgtype').value?[document.getElementById('f-mtgtype').value]:MTG_KEYS):MTG_KEYS;
+  const rows=members.map(mem=>{
+    const md=data.filter(r=>r.memberId===mem.id);
+    const cells=usedMtgs.map(mk=>{
+      if(!(mem.meetings||[]).includes(mk))return`<td class="cell-na">—</td>`;
+      const ma=md.filter(r=>r.type===mk&&r.status==='attend').length;
+      const ml=md.filter(r=>r.type===mk&&r.status==='late').length;
+      const mab=md.filter(r=>r.type===mk&&r.status==='absent').length;
+      if(!ma&&!ml&&!mab)return`<td><span style="color:var(--muted);font-size:11px">0</span></td>`;
+      return`<td>${ma?`<span class="cell-g">${ma}✅</span> `:''} ${ml?`<span class="cell-y">${ml}⏰</span> `:''} ${mab?`<span class="cell-r">${mab}❌</span>`:''}</td>`;
+    });
+    const tot=md.length;const mA=md.filter(r=>r.status==='attend').length;
+    const rate=tot?Math.round(mA/tot*100):0;
+    const rc=rate>=80?'var(--green)':rate>=50?'var(--yellow)':'var(--red)';
+    return`<tr><td><strong>${displayName(mem)}</strong><br><span style="font-size:10px;color:var(--muted)">${mem.line||''}</span></td>${cells.join('')}<td style="font-family:'IBM Plex Mono',monospace;font-weight:700;color:${rc};font-size:12px">${rate}%</td></tr>`;
+  });
+  document.getElementById('sum-table-title').textContent=sumView==='week'?'สรุปรายคน (สัปดาห์นี้)':sumView==='meeting'?'สรุปรายคน (ต่อประเภทประชุม)':'สรุปรายคน (เดือนนี้)';
+  document.getElementById('sum-table').innerHTML=`<thead><tr><th>ชื่อเล่น</th>${usedMtgs.map(k=>`<th style="color:${MTG[k].color}">${MTG[k].label}</th>`).join('')}<th>% เข้า</th></tr></thead><tbody>${rows.join('')}</tbody>`;
+  if(!data.length){document.getElementById('sum-records').innerHTML='<div class="empty"><div class="empty-ico">📊</div><p>ไม่มีข้อมูล</p></div>';return;}
+  document.getElementById('sum-records').innerHTML=`<table><thead><tr><th>สมาชิก</th><th>สายงาน</th><th>ประเภท</th><th>วันที่</th><th>สถานะ</th><th>กล้อง</th><th>หมายเหตุ</th></tr></thead><tbody>${data.map(r=>`<tr><td><strong>${displayName(r.memberName,members.find(x=>x.id===r.memberId)?.uplineId)}</strong></td><td style="color:var(--muted);font-size:12px">${r.memberLine||'—'}</td><td><span style="color:${r.type==='__special__'?'#fb923c':MTG[r.type]?.color||'var(--muted)'};font-size:12px;font-weight:600">${r.type==='__special__'?'🎯 '+r.specialEventName:MTG[r.type]?.label||r.type}</span></td><td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${fmtDate(r.date)}</td><td>${statusBadge(r.status)}</td><td>${camBadge(r.cam)}</td><td style="font-size:12px;color:var(--muted)">${r.note||'—'}</td></tr>`).join('')}</tbody></table>`;
+}
+
+// ============================================================
+// CALENDAR
+// ============================================================
+function buildCalSelects(){
+  const mSel=document.getElementById('cal-month');
+  const ySel=document.getElementById('cal-year');
+  if(mSel.options.length)return;
+  const now=new Date();
+  TH_MONTHS.forEach((n,i)=>{const o=document.createElement('option');o.value=i+1;o.textContent=n;mSel.appendChild(o);});
+  mSel.value=now.getMonth()+1;
+  for(let y=now.getFullYear();y>=now.getFullYear()-2;y--){const o=document.createElement('option');o.value=y;o.textContent=y;ySel.appendChild(o);}
+  ySel.value=now.getFullYear();
+}
+
+// Expected meeting dates for a given month
+function getExpectedSessions(year,month){
+  // DOW: begin-online=1(Mon), bridge-online=1(Mon), center-korat=4(Thu), center-bkk=5(Fri), begin-onsite=0(Sun)
+  const sched=[
+    {type:'begin-online',dow:1},{type:'bridge-online',dow:1},
+    {type:'center-korat',dow:4},{type:'center-bkk',dow:5},{type:'begin-onsite',dow:0},
+  ];
+  const dim=new Date(year,month,0).getDate();
+  const sessions=[];
+  sched.forEach(sch=>{
+    for(let d=1;d<=dim;d++){
+      if(new Date(year,month-1,d).getDay()===sch.dow){
+        const dateStr=`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        sessions.push({type:sch.type,date:dateStr,d});
+      }
+    }
+  });
+  return sessions;
+}
+
+function renderCalendar(){
+  const month=+document.getElementById('cal-month').value;
+  const year=+document.getElementById('cal-year').value;
+  const now=new Date();
+  const dim=new Date(year,month,0).getDate();
+  const firstDow=new Date(year,month-1,1).getDay();
+  const sessions=getExpectedSessions(year,month);
+
+  // Build day-date → sessions map
+  const dayMap={};
+  sessions.forEach(s=>{
+    if(!dayMap[s.d])dayMap[s.d]=[];
+    dayMap[s.d].push(s);
+  });
+
+  // Check which sessions are done
+  function isDone(type,dateStr){
+    const eligible=members.filter(m=>(m.meetings||[]).includes(type));
+    return eligible.length>0 && records.some(r=>r.type===type&&r.date===dateStr&&eligible.map(m=>m.id).includes(r.memberId));
+  }
+
+  // Day labels
+  document.getElementById('cal-day-labels').innerHTML=TH_DAYS.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+
+  // Cells
+  let cells='';
+  for(let i=0;i<firstDow;i++)cells+=`<div class="cal-cell empty"></div>`;
+  for(let d=1;d<=dim;d++){
+    const isToday=d===now.getDate()&&month===now.getMonth()+1&&year===now.getFullYear();
+    const daySessions=dayMap[d]||[];
+    const dots=daySessions.map(s=>{
+      const done=isDone(s.type,s.date);
+      return`<span class="cal-dot ${done?'dot-done':'dot-pending'}">${done?'✅':'○'} ${MTG[s.type]?.label||s.type}</span>`;
+    }).join('');
+    cells+=`<div class="cal-cell${isToday?' today':''}"><div class="cal-date">${d}</div>${dots}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=cells;
+
+  // Session list
+  const sessionItems=sessions.sort((a,b)=>a.date.localeCompare(b.date)).map(s=>{
+    const done=isDone(s.type,s.date);
+    const eligible=members.filter(m=>(m.meetings||[]).includes(s.type));
+    const checked=records.filter(r=>r.type===s.type&&r.date===s.date&&eligible.map(m=>m.id).includes(r.memberId));
+    const attend=checked.filter(r=>r.status==='attend').length;
+    const absent=checked.filter(r=>r.status==='absent').length;
+    return`<div style="background:var(--card);border:1px solid ${done?'rgba(34,197,94,.3)':' var(--border)'};border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span style="color:${MTG[s.type]?.color};font-size:12px;font-weight:700;min-width:120px">${MTG[s.type]?.label}</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted2)">${fmtDate(s.date)}</span>
+      ${done?`<span class="badge b-attend">✅ บันทึกแล้ว</span><span style="font-size:12px;color:var(--muted)">เข้า ${attend} / ขาด ${absent}</span>`:
+       new Date(s.date)<=now?`<span class="badge b-absent">⏳ ยังไม่เช็ค</span>`:`<span class="badge b-none">📅 ยังไม่ถึง</span>`}
+    </div>`;
+  });
+  document.getElementById('cal-session-list').innerHTML=sessionItems.join('')||'<div class="empty"><div class="empty-ico">📅</div><p>ไม่มี session</p></div>';
+}
+
+// ============================================================
+// MEMBERS
+// ============================================================
+function graduateMember(id){
+  const mem=members.find(m=>m.id===id);if(!mem)return;
+  const bc=records.filter(r=>r.memberId===id&&r.type==='begin-onsite'&&r.status==='attend').length;
+  if(!confirm(`ย้าย "${mem.name}" → Bridge Online + Center BKK/KKC?\n(เข้า Begin Onsite แล้ว ${bc} ครั้ง)`))return;
+  const keep=(mem.meetings||[]).filter(m=>!['begin-online','begin-onsite'].includes(m));
+  members[members.findIndex(m=>m.id===id)]={...mem,meetings:[...new Set([...keep,'bridge-online','center-bkk'])],graduated:true,graduatedAt:new Date().toISOString()};
+  save();renderMembers();toast(`🎓 ย้าย ${mem.name} ไป Bridge + Center แล้ว!`);
+}
+function renderMembers(){
+  const g=document.getElementById('member-grid');if(!g)return;
+  if(!members.length){g.innerHTML='<div class="empty"><div class="empty-ico">👤</div><p>ยังไม่มีสมาชิก</p></div>';return;}
+  const filtered = members.filter(m =>
+    memberFilter === 'all' ? true :
+    memberFilter === 'inactive' ? m.inactive :
+    !m.inactive
+  );
+  if(!filtered.length){g.innerHTML='<div class="empty"><div class="empty-ico">👤</div><p>ไม่มีสมาชิกในกลุ่มนี้</p></div>';return;}
+  g.innerHTML=filtered.map(m=>{
+    const upline=members.find(x=>x.id===m.uplineId);
+    const tags=(m.meetings||[]).map(mk=>`<span class="badge b-purple" style="color:${MTG[mk]?.color}">${MTG[mk]?.label||mk}</span>`).join('');
+    const isBegin=(m.meetings||[]).includes('begin-onsite')&&!(m.meetings||[]).includes('bridge-online');
+    const bc=records.filter(r=>r.memberId===m.id&&r.type==='begin-onsite'&&r.status==='attend').length;
+    const thr=4;const ready=isBegin&&bc>=thr&&!m.inactive;
+    const bar=isBegin&&!m.inactive?`<div style="margin:7px 0 3px;font-size:11px;color:var(--muted)">Begin Onsite: <span style="font-weight:700;color:${ready?'var(--green)':'var(--muted2)'}">${bc}/${thr}</span>${ready?' <span style="color:var(--green)">✅ พร้อมย้าย</span>':''}</div><div style="background:var(--border);border-radius:3px;height:4px;margin-bottom:7px"><div style="background:${ready?'var(--green)':'var(--accent)'};height:4px;border-radius:3px;width:${Math.min(bc/thr*100,100)}%"></div></div>`:'';
+    const statusBadgeHtml = m.inactive
+      ? '<span class="inactive-badge">⚫ Inactive</span>'
+      : '<span class="active-badge">🟢 Active</span>';
+    const toggleBtn = m.inactive
+      ? `<button class="btn btn-success btn-xs" onclick="toggleMemberActive(${m.id})">🟢 Active</button>`
+      : `<button class="btn btn-ghost btn-xs" onclick="toggleMemberActive(${m.id})">⚫ Inactive</button>`;
+    return`<div class="member-card${m.inactive?' inactive':''}" style="${ready?'border-color:rgba(34,197,94,.4);':''}">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+        <div class="mc-name">${displayName(m)}</div>
+        ${statusBadgeHtml}
+      </div>
+      <div class="mc-sub">สายงาน: ${m.line||'—'}${upline?' · Upline: '+upline.name:''}</div>
+      <div class="mc-tags">${tags||'<span style="font-size:11px;color:var(--muted)">ยังไม่กำหนด</span>'}</div>
+      ${bar}
+      <div class="mc-actions">
+        <button class="btn btn-ghost btn-xs" onclick="openMModal(${m.id})">✏️ แก้ไข</button>
+        ${ready?`<button class="btn btn-success btn-xs" onclick="graduateMember(${m.id})">🎓 ย้ายห้อง</button>`:''}
+        ${toggleBtn}
+        <button class="btn btn-danger btn-xs" onclick="delMember(${m.id})">ลบ</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function openMModal(id){
+  editMId=id||null;
+  document.getElementById('mmodal-title').textContent=id?'แก้ไขสมาชิก':'เพิ่มสมาชิก';
+  const uSel=document.getElementById('m-upline');
+  uSel.innerHTML='<option value="">— ไม่มี (Root) —</option>';
+  members.filter(m=>m.id!==id).forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name+(m.line?' ('+m.line+')':'');uSel.appendChild(o);});
+  document.getElementById('m-mtg-checks').innerHTML=MTG_KEYS.map(k=>`<label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;color:var(--muted2)"><input type="checkbox" class="m-cb" value="${k}" style="accent-color:${MTG[k].color}"/><span style="color:${MTG[k].color};font-weight:600">${MTG[k].label}</span><span style="font-size:11px;color:var(--muted)">${MTG[k].sub}</span></label>`).join('');
+  document.getElementById('m-name').value='';
+  document.getElementById('m-line').value='';
+  uSel.value='';
+  if(id){const mem=members.find(m=>m.id===id);if(mem){document.getElementById('m-name').value=mem.name;document.getElementById('m-line').value=mem.line||'';uSel.value=mem.uplineId||'';(mem.meetings||[]).forEach(mk=>{const cb=document.querySelector(`.m-cb[value="${mk}"]`);if(cb)cb.checked=true;});}}
+  document.getElementById('modal-m').classList.add('show');
+}
+function closeMModal(){document.getElementById('modal-m').classList.remove('show');editMId=null;}
+function saveMember(){
+  const name=document.getElementById('m-name').value.trim();
+  if(!name)return toast('กรุณากรอกชื่อ','err');
+  const line=document.getElementById('m-line').value.trim();
+  const uplineId=+document.getElementById('m-upline').value||null;
+  const meetings=[...document.querySelectorAll('.m-cb:checked')].map(c=>c.value);
+  if(editMId){const i=members.findIndex(m=>m.id===editMId);if(i>-1)members[i]={...members[i],name,line,uplineId,meetings};}
+  else members.push({id:Date.now(),name,line,uplineId,meetings});
+  save();closeMModal();renderMembers();toast(editMId?'✅ แก้ไขแล้ว':'✅ เพิ่มสมาชิกแล้ว');
+}
+function delMember(id){if(!confirm('ลบสมาชิกนี้?'))return;members=members.filter(m=>m.id!==id);save();renderMembers();toast('ลบแล้ว','err');}
+
+// ============================================================
+// ORG CHART
+// ============================================================
+// ---- LINE COLORS ----
+const LINE_COLORS=['#818cf8','#34d399','#fb923c','#f472b6','#facc15','#38bdf8','#a78bfa','#4ade80','#f87171','#60a5fa','#fbbf24','#e879f9'];
+function getLineColor(line){
+  if(!line)return null;
+  const lines=[...new Set(members.map(m=>m.line).filter(Boolean))].sort();
+  const idx=lines.indexOf(line);
+  return LINE_COLORS[idx%LINE_COLORS.length];
+}
+
+// ---- ZOOM & PAN ----
+let orgScale=1;
+function orgZoom(delta){
+  orgScale=Math.min(2.5,Math.max(0.25,orgScale+delta));
+  document.getElementById('org-wrap').style.transform=`scale(${orgScale})`;
+  document.getElementById('org-wrap').style.transformOrigin='top left';
+  document.getElementById('zoom-label').textContent=Math.round(orgScale*100)+'%';
+}
+function orgReset(){orgScale=1;document.getElementById('org-wrap').style.transform='scale(1)';document.getElementById('zoom-label').textContent='100%';}
+
+// drag to pan
+(function initOrgPan(){
+  let dr=false,sx=0,sy=0,ox=0,oy=0;
+  function setup(){
+    const el=document.getElementById('org-outer');
+    if(!el)return setTimeout(setup,300);
+    el.addEventListener('mousedown',e=>{if(e.button!==0)return;dr=true;sx=e.clientX;sy=e.clientY;ox=el.scrollLeft;oy=el.scrollTop;el.classList.add('grabbing');});
+    el.addEventListener('mousemove',e=>{if(!dr)return;el.scrollLeft=ox-(e.clientX-sx);el.scrollTop=oy-(e.clientY-sy);});
+    el.addEventListener('mouseup',()=>{dr=false;el.classList.remove('grabbing');});
+    el.addEventListener('mouseleave',()=>{dr=false;el.classList.remove('grabbing');});
+    el.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();orgZoom(e.deltaY<0?0.1:-0.1);}},{passive:false});
+    // pinch zoom
+    let pd=0;
+    el.addEventListener('touchstart',e=>{if(e.touches.length===2)pd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);});
+    el.addEventListener('touchmove',e=>{if(e.touches.length===2){e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);orgZoom((d-pd)*0.005);pd=d;}},{passive:false});
+  }
+  setTimeout(setup,100);
+})();
+
+function renderOrg(){
+  const c=document.getElementById('org-wrap');
+  if(!members.length){c.innerHTML='<div class="empty"><div class="empty-ico">🌳</div><p>ยังไม่มีสมาชิก</p></div>';return;}
+  const roots=members.filter(m=>!m.uplineId);
+  function buildNode(m,depth=0){
+    const children=members.filter(x=>x.uplineId===m.id);
+    const lc=getLineColor(m.line);
+    const nStyle=depth===0
+      ?'border-color:var(--accent);background:rgba(124,109,250,.12)'
+      :lc?`border-color:${lc}55;background:${lc}12`:'border-color:var(--border2);background:var(--surface2)';
+    const lineTag=m.line&&lc
+      ?`<div class="ns" style="background:${lc}22;color:${lc};border-radius:4px;padding:1px 6px;font-size:10px;margin-top:4px;font-weight:700">${m.line}</div>`
+      :(m.line?`<div class="ns">${m.line}</div>`:'');
+    const node=`<div class="org-node" style="${nStyle}"><div class="nn">${displayName(m)}</div>${lineTag}</div>`;
+    if(!children.length)return`<div class="org-child">${node}</div>`;
+    return`<div class="org-child">${node}<div class="org-connector-v"></div><div class="org-children-wrap">${children.map(ch=>buildNode(ch,depth+1)).join('')}</div></div>`;
+  }
+  c.innerHTML=`<div style="display:inline-flex;gap:60px;align-items:flex-start;">${roots.map(r=>buildNode(r)).join('')}</div>`;
+}
+
+// ============================================================
+// MOCK / REAL DATA
+// ============================================================
+const REAL_MEMBERS=[
+  {id:1,name:'เด้น',line:null,uplineId:null,meetings:['bridge-online','center-bkk']},
+  {id:2,name:'เก็ต',line:'B',uplineId:1,meetings:['bridge-online','center-bkk']},
+  {id:3,name:'ก้ฟ',line:'B',uplineId:2,meetings:['bridge-online','center-korat']},
+  {id:4,name:'ก็อต',line:'A',uplineId:1,meetings:['bridge-online','center-bkk']},
+  {id:5,name:'มั้น',line:'A',uplineId:4,meetings:['bridge-online','center-bkk']},
+  {id:6,name:'โด้',line:'A',uplineId:5,meetings:['bridge-online','center-bkk']},
+  {id:7,name:'เอิร์ธ',line:'A',uplineId:5,meetings:['bridge-online','center-bkk']},
+  {id:8,name:'หวาน',line:'A',uplineId:6,meetings:['bridge-online','center-bkk']},
+  {id:9,name:'ฟลุ๊ค ราม',line:'A',uplineId:6,meetings:['bridge-online','center-bkk']},
+  {id:10,name:'ฟลุ๊ค',line:'A',uplineId:8,meetings:['begin-online','begin-onsite']},
+  {id:11,name:'ปังคุง',line:'A',uplineId:8,meetings:['begin-online','begin-onsite']},
+  {id:12,name:'นนนี่',line:'A',uplineId:4,meetings:['bridge-online','center-bkk']},
+  {id:13,name:'เนม',line:'A',uplineId:12,meetings:['bridge-online','center-bkk']},
+  {id:14,name:'พีท',line:'A',uplineId:12,meetings:['bridge-online','center-bkk']},
+  {id:15,name:'ทิว',line:'A',uplineId:13,meetings:['begin-online','begin-onsite']},
+  {id:16,name:'รัฐ',line:'A',uplineId:13,meetings:['begin-online','begin-onsite']},
+  {id:17,name:'ลูกพีช',line:'A',uplineId:4,meetings:['bridge-online','center-bkk']},
+  {id:18,name:'แบม',line:'A',uplineId:17,meetings:['bridge-online','center-bkk']},
+  {id:19,name:'ก้าว',line:'A',uplineId:18,meetings:['bridge-online','center-bkk']},
+  {id:20,name:'อุ้ม',line:'A',uplineId:18,meetings:['bridge-online','center-bkk']},
+];
+function loadRealMembers(){
+  if(!confirm('โหลดรายชื่อจริง? ข้อมูลเช็คชื่อเดิมจะยังอยู่ครบ'))return;
+  members=JSON.parse(JSON.stringify(REAL_MEMBERS));
+  save();renderMembers();buildMtgSelector();toast('✅ โหลดรายชื่อจริง '+members.length+' คนสำเร็จ!');
+}
+function loadMockData(){
+  if(!confirm('โหลด Mock Data? (จะลบข้อมูลเดิมทั้งหมด)'))return;
+  const SCHED=[{type:'begin-online',dow:1},{type:'bridge-online',dow:1},{type:'center-korat',dow:4},{type:'center-bkk',dow:5},{type:'begin-onsite',dow:0}];
+  function rs(){const r=Math.random()*100;return r<13?'absent':r<28?'late':'attend';}
+  const recs=[];const now=new Date();
+  for(let mo=0;mo<=1;mo++){
+    let tm=now.getMonth()-mo,ty=now.getFullYear();
+    if(tm<0){tm+=12;ty--;}
+    const dim=new Date(ty,tm+1,0).getDate();
+    SCHED.forEach(sch=>{
+      for(let d=1;d<=dim;d++){
+        if(new Date(ty,tm,d).getDay()!==sch.dow)continue;
+        if(new Date(ty,tm,d)>now)continue;
+        const ds=ty+'-'+String(tm+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+        const isOnline=['begin-online','bridge-online'].includes(sch.type);
+        REAL_MEMBERS.forEach(mem=>{
+          if(!(mem.meetings||[]).includes(sch.type))return;
+          const status=rs();
+          const notes=['','','ติดงาน','ลูกป่วย','ติดนัดหมาย',''];
+          recs.push({id:Date.now()+Math.floor(Math.random()*9999999),memberId:mem.id,memberName:mem.name,memberLine:mem.line,type:sch.type,date:ds,status,cam:isOnline?(status==='absent'?'na':Math.random()>0.3?'on':'off'):'na',note:status==='absent'?notes[Math.floor(Math.random()*notes.length)]:'',savedAt:new Date().toISOString()});
+        });
+      }
+    });
+  }
+  recs.sort((a,b)=>b.date.localeCompare(a.date));
+  members=JSON.parse(JSON.stringify(REAL_MEMBERS));
+  records=JSON.parse(JSON.stringify(recs));
+  save();buildMtgSelector();renderMembers();
+  toast('🎲 Mock สำเร็จ! '+members.length+' คน / '+records.length+' records');
+}
+function clearAll(){
+  if(!confirm('ล้างข้อมูลทั้งหมด?'))return;
+  members=[];records=[];save();renderMembers();buildMtgSelector();
+  document.getElementById('checkin-section').style.display='none';
+  toast('🗑 ล้างข้อมูลแล้ว','err');
+}
+
+
+
+// ============================================================
+// LINE SETTINGS & SEND
+// ============================================================
+function loadLineSettings() {
+  const token   = localStorage.getItem('dt-line-token')  || '';
+  const group   = localStorage.getItem('dt-line-group')  || '';
+  const backend = localStorage.getItem('dt-line-backend')|| '';
+  const notifyR = localStorage.getItem('dt-notify-regular') === '1';
+  const notifyS = localStorage.getItem('dt-notify-special')  === '1';
+  const tEl = document.getElementById('s-line-token');
+  const gEl = document.getElementById('s-line-group');
+  const bEl = document.getElementById('s-line-backend');
+  const nrEl = document.getElementById('s-notify-regular');
+  const nsEl = document.getElementById('s-notify-special');
+  if(tEl) tEl.value = token;
+  if(gEl) gEl.value = group;
+  if(bEl) bEl.value = backend;
+  if(nrEl) nrEl.checked = notifyR;
+  if(nsEl) nsEl.checked = notifyS;
+  renderSysInfo();
+}
+
+function saveLineSettings() {
+  const token   = document.getElementById('s-line-token').value.trim();
+  const group   = document.getElementById('s-line-group').value.trim();
+  const backend = document.getElementById('s-line-backend').value.trim();
+  localStorage.setItem('dt-line-token',   token);
+  localStorage.setItem('dt-line-group',   group);
+  localStorage.setItem('dt-line-backend', backend);
+  document.getElementById('line-status').innerHTML =
+    '<span style="color:var(--green)">✅ บันทึกแล้ว (Token เก็บใน browser เครื่องนี้เท่านั้น)</span>';
+  setTimeout(() => { const el = document.getElementById('line-status'); if(el) el.innerHTML=''; }, 3000);
+  toast('✅ บันทึกการตั้งค่า LINE แล้ว');
+}
+
+function saveNotifySettings() {
+  localStorage.setItem('dt-notify-regular', document.getElementById('s-notify-regular').checked ? '1' : '0');
+  localStorage.setItem('dt-notify-special',  document.getElementById('s-notify-special').checked  ? '1' : '0');
+  toast('✅ บันทึกการแจ้งเตือนแล้ว');
+}
+
+function toggleTokenView() {
+  const el = document.getElementById('s-line-token');
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+async function sendLineMsg(text) {
+  const backend = localStorage.getItem('dt-line-backend');
+  const token   = localStorage.getItem('dt-line-token');
+  const group   = localStorage.getItem('dt-line-group');
+  if(!backend || !token || !group) return false;
+  try {
+    const res = await fetch(backend, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, groupId: group, message: text })
+    });
+    return res.ok;
+  } catch(e) {
+    console.error('LINE send error:', e);
+    return false;
+  }
+}
+
+async function testLineMsg() {
+  document.getElementById('line-status').innerHTML = '<span style="color:var(--yellow)">⏳ กำลังส่ง...</span>';
+  const ok = await sendLineMsg('🧪 ทดสอบจาก Deniel\'s Team Attendance System\n✅ ระบบพร้อมใช้งานแล้ว!');
+  document.getElementById('line-status').innerHTML = ok
+    ? '<span style="color:var(--green)">✅ ส่งสำเร็จ! ตรวจสอบในกลุ่ม LINE</span>'
+    : '<span style="color:var(--red)">❌ ส่งไม่สำเร็จ ตรวจสอบ Token / Group ID / Backend URL</span>';
+}
+
+function buildLineMsg(type, date, eligible) {
+  const mtg = MTG[type];
+  const thDate = fmtDate(date);
+  const dow = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'][new Date(date).getDay()];
+
+  // Group members by line
+  const roots  = eligible.filter(m => !m.uplineId);
+  const byLine = {};
+  eligible.forEach(m => {
+    if(m.uplineId) {
+      const k = m.line || 'ไม่มีสาย';
+      if(!byLine[k]) byLine[k] = [];
+      byLine[k].push(m);
+    }
+  });
+
+  function statusIcon(s) {
+    if(s==='attend') return '✅';
+    if(s==='late')   return '⏰';
+    if(s==='absent') return '❌';
+    return '⬜';
+  }
+
+  let msg = `📋 สรุปเช็คชื่อ\n`;
+  msg += `${'─'.repeat(20)}\n`;
+  msg += `🏷 ${mtg?.label || type}\n`;
+  msg += `📅 ${dow}ที่ ${thDate}\n\n`;
+
+  // Root members first
+  if(roots.length) {
+    roots.forEach(m => {
+      const rec = records.find(r => r.memberId===m.id && r.type===type && r.date===date);
+      const s = rec ? rec.status : '';
+      msg += `👑 ${m.name} (ต้นสาย)\n${statusIcon(s)} ${s==='attend'?'เข้าร่วม':s==='late'?'สาย':s==='absent'?'ขาด':'ยังไม่เช็ค'}\n\n`;
+    });
+  }
+
+  // By line
+  Object.keys(byLine).sort().forEach(line => {
+    msg += `━━ ${line} ━━\n`;
+    byLine[line].forEach(m => {
+      const upline = members.find(x => x.id === m.uplineId);
+      const rec = records.find(r => r.memberId===m.id && r.type===type && r.date===date);
+      const s = rec ? rec.status : '';
+      const note = rec?.note ? ` — ${rec.note}` : '';
+      msg += `${statusIcon(s)} ${m.name}${upline?' ('+upline.name+')':''}${note}\n`;
+    });
+    msg += '\n';
+  });
+
+  // Summary
+  const recs = eligible.map(m => records.find(r => r.memberId===m.id && r.type===type && r.date===date)).filter(Boolean);
+  const a = recs.filter(r=>r.status==='attend').length;
+  const l = recs.filter(r=>r.status==='late').length;
+  const ab= recs.filter(r=>r.status==='absent').length;
+  const total = eligible.length;
+  const pct = total ? Math.round((a/total)*100) : 0;
+  msg += `${'─'.repeat(20)}\n`;
+  msg += `👥 รวม ${total} คน\n`;
+  msg += `✅ เข้า ${a} · ⏰ สาย ${l} · ❌ ขาด ${ab}\n`;
+  msg += `📊 ${pct}%`;
+  return msg;
+}
+
+function buildSpecialLineMsg(ev, eligible) {
+  let msg = `📋 สรุปเช็คชื่อ\n`;
+  msg += `${'─'.repeat(20)}\n`;
+  msg += `🎯 ${ev.name}\n`;
+  msg += `📅 ${fmtDate(ev.date)}\n`;
+  if(ev.location) msg += `📍 ${ev.location}\n`;
+  msg += '\n';
+
+  // Group by line, exclude optional
+  const attending = eligible.filter(m => {
+    const rec = records.find(r => r.memberId===m.id && r.specialEventId===ev.id);
+    return rec && (rec.status==='attend' || rec.status==='late' || rec.status==='absent');
+  });
+
+  const byLine = {};
+  const roots  = [];
+  attending.forEach(m => {
+    if(!m.uplineId) { roots.push(m); return; }
+    const k = m.line || 'ไม่มีสาย';
+    if(!byLine[k]) byLine[k] = [];
+    byLine[k].push(m);
+  });
+
+  if(roots.length) {
+    roots.forEach(m => {
+      const rec = records.find(r => r.memberId===m.id && r.specialEventId===ev.id);
+      const s = rec?.status;
+      msg += `👑 ${m.name} (ต้นสาย)\n${s==='attend'?'✅ เข้าร่วม':'❌ ไม่เข้าร่วม'}\n\n`;
+    });
+  }
+
+  Object.keys(byLine).sort().forEach(line => {
+    msg += `━━ ${line} ━━\n`;
+    byLine[line].forEach(m => {
+      const upline = members.find(x => x.id===m.uplineId);
+      const rec = records.find(r => r.memberId===m.id && r.specialEventId===ev.id);
+      const s = rec?.status;
+      const note = rec?.note ? ` — ${rec.note}` : '';
+      msg += `${s==='attend'?'✅':'❌'} ${m.name}${upline?' ('+upline.name+')':''}${note}\n`;
+    });
+    msg += '\n';
+  });
+
+  const recs = records.filter(r => r.specialEventId===ev.id && r.status!=='optional');
+  const a  = recs.filter(r=>r.status==='attend').length;
+  const ab = recs.filter(r=>r.status==='absent').length;
+  msg += `${'─'.repeat(20)}\n`;
+  msg += `✅ เข้าร่วม ${a} · ❌ ไม่เข้าร่วม ${ab}`;
+  return msg;
+}
+
+function renderSysInfo() {
+  const el = document.getElementById('sys-info');
+  if(!el) return;
+  const mb = (JSON.stringify(localStorage).length / 1024).toFixed(1);
+  el.innerHTML = `
+    <div>👥 สมาชิก: <strong style="color:var(--text)">${members.length} คน</strong> (Active: ${members.filter(m=>!m.inactive).length})</div>
+    <div>📋 Records ทั้งหมด: <strong style="color:var(--text)">${records.length} รายการ</strong></div>
+    <div>🎯 ประชุมพิเศษ: <strong style="color:var(--text)">${specialEvents.length} งาน</strong></div>
+    <div>💾 พื้นที่ใช้งาน: <strong style="color:var(--text)">${mb} KB</strong> / ~5,000 KB</div>
+    <div>🔗 LINE: <strong style="color:${localStorage.getItem('dt-line-token')?'var(--green)':'var(--red)'}">${localStorage.getItem('dt-line-token')?'ตั้งค่าแล้ว':'ยังไม่ได้ตั้งค่า'}</strong></div>
+  `;
+}
+
+// ============================================================
+// SPECIAL EVENTS
+// ============================================================
+// (moved to STATE section)
+
+function setMemberFilter(f, el) {
+  memberFilter = f;
+  document.querySelectorAll('.mft').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderMembers();
+}
+
+function toggleMemberActive(id) {
+  const idx = members.findIndex(m => m.id === id);
+  if (idx < 0) return;
+  members[idx].inactive = !members[idx].inactive;
+  save();
+  renderMembers();
+  toast(members[idx].inactive ? '⚫ ย้ายเป็น Inactive แล้ว' : '🟢 ย้ายเป็น Active แล้ว');
+}
+
+function openSpecialModal(id) {
+  document.getElementById('se-modal-title').textContent = '🎯 สร้างประชุมพิเศษ';
+  document.getElementById('se-template').value = '';
+  document.getElementById('se-name').value = '';
+  document.getElementById('se-date').value = todayStr();
+  document.getElementById('se-location').value = '';
+  document.getElementById('se-note').value = '';
+  document.getElementById('modal-special').classList.add('show');
+}
+
+function closeSpecialModal() {
+  document.getElementById('modal-special').classList.remove('show');
+}
+
+function applySeTemplate() {
+  const val = document.getElementById('se-template').value;
+  if (val) document.getElementById('se-name').value = val;
+}
+
+function saveSpecialEvent() {
+  const name = document.getElementById('se-name').value.trim();
+  const date = document.getElementById('se-date').value;
+  if (!name) return toast('กรุณากรอกชื่องาน', 'err');
+  if (!date) return toast('กรุณาระบุวันที่', 'err');
+  specialEvents.unshift({
+    id: Date.now(),
+    name,
+    date,
+    location: document.getElementById('se-location').value.trim(),
+    note: document.getElementById('se-note').value.trim(),
+    createdAt: new Date().toISOString()
+  });
+  saveSpecial();
+  closeSpecialModal();
+  renderSpecialList();
+  toast('✅ สร้างประชุมพิเศษแล้ว');
+}
+
+function saveSpecial() {
+  localStorage.setItem('dt-special', JSON.stringify(specialEvents));
+}
+
+function deleteSpecialEvent(id) {
+  if (!confirm('ลบประชุมพิเศษนี้? (ประวัติเช็คชื่อจะหายด้วย)')) return;
+  specialEvents = specialEvents.filter(e => e.id !== id);
+  records = records.filter(r => r.specialEventId !== id);
+  save(); saveSpecial();
+  renderSpecialList();
+  toast('ลบแล้ว', 'err');
+}
+
+function renderSpecialList() {
+  const c = document.getElementById('special-list');
+  if (!c) return;
+  if (!specialEvents.length) {
+    c.innerHTML = '<div class="empty"><div class="empty-ico">🎯</div><p>ยังไม่มีประชุมพิเศษ</p></div>';
+    return;
+  }
+  c.innerHTML = specialEvents.map(ev => {
+    const evRecs = records.filter(r => r.specialEventId === ev.id);
+    const attend = evRecs.filter(r => r.status === 'attend').length;
+    const late = evRecs.filter(r => r.status === 'late').length;
+    const absent = evRecs.filter(r => r.status === 'absent').length;
+    const optional = evRecs.filter(r => r.status === 'optional').length;
+    const checked = evRecs.length > 0;
+    return `<div class="special-card">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="se-name">${ev.name}</span>
+          <span class="se-badge">พิเศษ</span>
+          ${checked ? '<span class="badge b-attend">✅ เช็คแล้ว</span>' : '<span class="badge b-none">⏳ ยังไม่เช็ค</span>'}
+        </div>
+        <div class="se-date">${fmtDate(ev.date)}${ev.location ? ' · ' + ev.location : ''}</div>
+        ${checked ? `<div style="font-size:12px;color:var(--muted);margin-top:4px;">✅${attend} ⏰${late} ❌${absent} ${optional ? `· ไม่จำเป็น ${optional}` : ''}</div>` : ''}
+        ${ev.note ? `<div style="font-size:11px;color:var(--muted);margin-top:3px;">${ev.note}</div>` : ''}
+      </div>
+      <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-xs" onclick="startSpecialCheckin(${ev.id})">📋 เช็คชื่อ</button>
+        <button class="btn btn-danger btn-xs" onclick="deleteSpecialEvent(${ev.id})">ลบ</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startSpecialCheckin(eventId) {
+  const ev = specialEvents.find(e => e.id === eventId);
+  if (!ev) return;
+  // Switch to check-in tab with special mode
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelector('.tab').classList.add('active');
+  document.getElementById('page-checkin').classList.add('active');
+  // Set special checkin mode
+  selectedMtg = '__special__';
+  currentSpecialEvent = ev;
+  // Load all active members
+  const eligible = members.filter(m => !m.inactive);
+  ciState = {};
+  eligible.forEach(m => {
+    const ex = records.find(r => r.memberId === m.id && r.specialEventId === eventId);
+    ciState[m.id] = ex ? { status: ex.status, cam: 'na', note: ex.note || '' } : { status: '', cam: 'na', note: '' };
+  });
+  // Show checkin section
+  document.getElementById('date-row').style.display = 'none';
+  document.getElementById('checkin-section').style.display = 'block';
+  document.getElementById('ci-session-label').innerHTML =
+    `<span style="color:#fb923c;font-weight:700;">🎯 ${ev.name}</span> &nbsp;·&nbsp; ${fmtDate(ev.date)}`;
+  document.getElementById('ci-saved-badge').style.display = records.some(r => r.specialEventId === eventId) ? 'inline-flex' : 'none';
+  renderSpecialCheckinList(eligible);
+}
+
+function renderSpecialCheckinList(eligible) {
+  const isSpecial = true;
+  document.getElementById('checkin-list').innerHTML = eligible.map(m => {
+    const s = ciState[m.id];
+    const u = members.find(x => x.id === m.uplineId);
+    return `<div class="checkin-row status-${s.status || 'none'}" id="crow-${m.id}">
+      <div>
+        <div class="cr-name">${m.name}${u ? ' <span style="font-size:11px;font-weight:400;color:var(--muted)">('+u.name+')</span>' : ''}</div>
+        <div class="cr-line">${m.line || '—'}</div>
+      </div>
+      <div class="cr-actions">
+        <div class="status-btns">
+          <button class="btn btn-success btn-xs ${s.status==='attend'?'active-btn':''}" onclick="setCiStatus(${m.id},'attend',this)">✅ เข้าร่วม</button>
+          <button class="btn btn-danger btn-xs ${s.status==='absent'?'active-btn':''}" onclick="setCiStatus(${m.id},'absent',this)">❌ ไม่เข้าร่วม</button>
+          <button class="btn btn-ghost btn-xs ${s.status==='optional'?'active-btn':''}" onclick="setCiStatus(${m.id},'optional',this)">— ไม่จำเป็น</button>
+        </div>
+        <input class="note-input" type="text" placeholder="หมายเหตุ..." value="${s.note}" oninput="ciState[${m.id}].note=this.value"/>
+      </div>
+    </div>`;
+  }).join('');
+  updateSpecialCiSummary(eligible);
+}
+
+function updateSpecialCiSummary(eligible) {
+  const vals = eligible.map(m => ciState[m.id].status);
+  const a = vals.filter(s => s === 'attend').length;
+  const l = vals.filter(s => s === 'late').length;
+  const ab = vals.filter(s => s === 'absent').length;
+  const op = vals.filter(s => s === 'optional').length;
+  const p = vals.filter(s => !s).length;
+  document.getElementById('ci-summary-bar').innerHTML =
+    `<div class="csb-item"><span class="badge b-attend">✅ ${a}</span> เข้าร่วม</div>
+     <div class="csb-item"><span class="badge b-absent">❌ ${ab}</span> ไม่เข้าร่วม</div>
+     <div class="csb-item"><span class="badge b-none">— ${op}</span> ไม่จำเป็น</div>
+     ${p ? `<div class="csb-item"><span class="badge b-none">⬜ ${p}</span> ยังไม่เช็ค</div>` : ''}
+     <div class="csb-item" style="margin-left:auto;font-size:12px;color:var(--muted);">รวม ${eligible.length} คน</div>`;
+}
+
+function saveSpecialCheckin() {
+  if (!currentSpecialEvent) return;
+  const ev = currentSpecialEvent;
+  const eligible = members.filter(m => !m.inactive);
+  const unchecked = eligible.filter(m => !ciState[m.id].status);
+  if (unchecked.length && !confirm(`ยังมี ${unchecked.length} คนที่ยังไม่ได้เช็ค บันทึกต่อเลยไหม?`)) return;
+  // Remove old records for this event
+  records = records.filter(r => r.specialEventId !== ev.id);
+  eligible.forEach(m => {
+    const s = ciState[m.id];
+    if (!s.status) return;
+    records.unshift({
+      id: Date.now() + Math.floor(Math.random() * 9999),
+      memberId: m.id, memberName: m.name, memberLine: m.line || '',
+      type: '__special__',
+      specialEventId: ev.id,
+      specialEventName: ev.name,
+      date: ev.date,
+      status: s.status,
+      cam: 'na', note: s.note || '',
+      savedAt: new Date().toISOString()
+    });
+  });
+  records.sort((a, b) => b.date.localeCompare(a.date));
+  save();
+  document.getElementById('ci-saved-badge').style.display = 'inline-flex';
+  toast(`✅ บันทึกเช็คชื่อ ${ev.name} สำเร็จ!`);
+  if(localStorage.getItem('dt-notify-special')==='1') {
+    const msg = buildSpecialLineMsg(ev, eligible);
+    sendLineMsg(msg).then(ok => {
+      if(ok) toast('💬 ส่ง LINE แล้ว!');
+      else toast('⚠️ บันทึกแล้วแต่ส่ง LINE ไม่สำเร็จ','warn');
+    });
+  }
+}
+
+// (moved to STATE section)
+
+// ============================================================
+// HELPERS
+// ============================================================
+function displayName(m,uplineId){
+  const name=typeof m==='object'?m.name:m;
+  const uid=typeof m==='object'?m.uplineId:uplineId;
+  const u=members.find(x=>x.id===uid);
+  return u?name+' <span style="font-size:11px;font-weight:400;color:var(--muted)">('+u.name+')</span>':name;
+}
+function save(){localStorage.setItem('dt-members',JSON.stringify(members));localStorage.setItem('dt-records',JSON.stringify(records));}
+function todayStr(){return new Date().toISOString().split('T')[0];}
+function fmtDate(d){if(!d)return'—';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`;}
+function statusBadge(s){if(s==='attend')return'<span class="badge b-attend">✅ เข้าร่วม</span>';if(s==='late')return'<span class="badge b-late">⏰ สาย</span>';if(s==='absent')return'<span class="badge b-absent">❌ ขาด</span>';return'—';}
+function camBadge(c){if(c==='on')return'<span class="badge b-cam-on">📹 เปิด</span>';if(c==='off')return'<span class="badge b-cam-off">🚫 ปิด</span>';return'<span style="color:var(--muted);font-size:11px">—</span>';}
+function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(type==='err'?' err':type==='warn'?' warn':'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function openArchiveModal(){
+  const years=[...new Set(records.map(r=>r.date.split('-')[0]))].sort().reverse();
+  if(!years.length)return toast('ยังไม่มีข้อมูล','err');
+  const sel=document.getElementById('archive-year');
+  sel.innerHTML=years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  updateArchivePreview();
+  sel.onchange=updateArchivePreview;
+  document.getElementById('modal-archive').classList.add('show');
+}
+function updateArchivePreview(){
+  const year=document.getElementById('archive-year').value;
+  const yearRecs=records.filter(r=>r.date.startsWith(year));
+  const attend=yearRecs.filter(r=>r.status==='attend').length;
+  const late=yearRecs.filter(r=>r.status==='late').length;
+  const absent=yearRecs.filter(r=>r.status==='absent').length;
+  const sessions=[...new Set(yearRecs.map(r=>r.date+'|'+r.type))].length;
+  document.getElementById('archive-preview').innerHTML=
+    `<div style="font-weight:600;color:var(--text);margin-bottom:6px;">ปี ${year}</div>
+     <div style="display:flex;gap:14px;flex-wrap:wrap;">
+       <span>📋 ${yearRecs.length} records</span>
+       <span>📅 ${sessions} sessions</span>
+       <span style="color:var(--green)">✅ ${attend} เข้า</span>
+       <span style="color:var(--yellow)">⏰ ${late} สาย</span>
+       <span style="color:var(--red)">❌ ${absent} ขาด</span>
+     </div>`;
+}
+function doExportArchive(){
+  const year=document.getElementById('archive-year').value;
+  const yearRecs=records.filter(r=>r.date.startsWith(year));
+  if(!yearRecs.length)return toast('ไม่มีข้อมูลปีนี้','err');
+  const h=['ชื่อเล่น','สายงาน','ประเภทประชุม','วันที่','สถานะ','กล้อง','หมายเหตุ'];
+  const sm={attend:'เข้าร่วม',late:'สาย',absent:'ขาด'};
+  const cm={on:'เปิดกล้อง',off:'ปิดกล้อง',na:'—'};
+  const rows=yearRecs.map(r=>[r.memberName,r.memberLine||'',MTG[r.type]?.label||r.type,r.date,sm[r.status]||r.status,cm[r.cam]||r.cam,r.note||''].map(v=>`"${v}"`).join(','));
+  const csv='\uFEFF'+[h.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`archive-${year}.csv`;a.click();
+  toast(`⬇️ Export ปี ${year} สำเร็จ! (${yearRecs.length} records)`);
+}
+function doDeleteArchive(){
+  const year=document.getElementById('archive-year').value;
+  const yearRecs=records.filter(r=>r.date.startsWith(year));
+  if(!yearRecs.length)return toast('ไม่มีข้อมูลปีนี้','err');
+  if(!confirm(`ลบข้อมูลปี ${year} ออก ${yearRecs.length} records?\nแนะนำให้ Export ก่อนนะ!`))return;
+  records=records.filter(r=>!r.date.startsWith(year));
+  save();
+  document.getElementById('modal-archive').classList.remove('show');
+  toast(`🗑 ลบข้อมูลปี ${year} แล้ว`,'err');
+}
+
+function exportCSV(){
+  if(!records.length)return toast('ยังไม่มีข้อมูล','err');
+  const h=['ชื่อเล่น','สายงาน','ประเภทประชุม','วันที่','สถานะ','กล้อง','หมายเหตุ'];
+  const sm={attend:'เข้าร่วม',late:'สาย',absent:'ขาด'};
+  const cm={on:'เปิดกล้อง',off:'ปิดกล้อง',na:'—'};
+  const rows=records.map(r=>[r.memberName,r.memberLine||'',MTG[r.type]?.label||r.type,r.date,sm[r.status]||r.status,cm[r.cam]||r.cam,r.note||''].map(v=>`"${v}"`).join(','));
+  const csv='\uFEFF'+[h.join(','),...rows].join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download=`attendance-${todayStr()}.csv`;a.click();
+  toast('⬇️ Export สำเร็จ!');
+}
+const s=document.createElement('style');s.textContent='.active-btn{opacity:1!important;filter:brightness(1.2);box-shadow:0 0 0 2px currentColor!important;}';document.head.appendChild(s);
+</script>
+</body>
+</html>
