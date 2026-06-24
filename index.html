@@ -176,19 +176,34 @@ tr:hover td{background:rgba(124,109,250,.04);}
 .mc-actions{display:flex;gap:5px;}
 
 /* ORG */
-.org-outer{overflow:auto;width:100%;min-height:calc(100vh - 160px);background:var(--bg);cursor:grab;user-select:none;}
-.org-outer.grabbing{cursor:grabbing;}
-.org-wrap{display:inline-flex;padding:40px;min-width:max-content;transform-origin:top left;transition:transform .15s;}
-.org-node{border:1.5px solid var(--border2);border-radius:10px;padding:10px 16px;text-align:center;min-width:110px;position:relative;}
-.org-node.root-node{border-color:var(--accent);background:rgba(124,109,250,.1);}
-.org-node .nn{font-weight:700;font-size:13px;}
-.org-node .ns{font-size:10px;margin-top:3px;font-weight:600;padding:1px 6px;border-radius:4px;display:inline-block;margin-top:4px;}
-.org-connector-v{width:1px;height:20px;background:var(--border2);margin:0 auto;}
-.org-children-wrap{display:flex;gap:24px;align-items:flex-start;position:relative;}
-.org-children-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--border2);}
-.org-child{display:flex;flex-direction:column;align-items:center;}
-.org-child::before{content:'';width:1px;height:14px;background:var(--border2);}
-.zoom-controls{display:flex;gap:6px;align-items:center;}
+/* OrgChart styles */
+#org-chart-container { width:100%; min-height:calc(100vh - 160px); }
+.orgchart { background: var(--bg) !important; }
+.orgchart .node { cursor: pointer; }
+.orgchart .node .title {
+  background: linear-gradient(135deg, var(--accent), var(--accent2)) !important;
+  border-radius: 8px 8px 0 0 !important;
+  font-family: 'Sarabun', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 6px 12px !important;
+}
+.orgchart .node .content {
+  background: var(--surface2) !important;
+  border: 1.5px solid var(--border2) !important;
+  border-top: none !important;
+  border-radius: 0 0 8px 8px !important;
+  color: var(--muted2) !important;
+  font-family: 'Sarabun', sans-serif !important;
+  font-size: 11px !important;
+  padding: 4px 12px !important;
+}
+.orgchart .node:hover > .title { opacity: 0.85; }
+.orgchart .lines .downLine { background: #4a5280 !important; }
+.orgchart .lines .rightLine { border-left: 2px solid #4a5280 !important; }
+.orgchart .lines .leftLine  { border-right: 2px solid #4a5280 !important; }
+.orgchart .lines .topLine   { border-top: 2px solid #4a5280 !important; }
+.org-zoom-controls{display:flex;gap:6px;align-items:center;margin-bottom:10px;}
 .zoom-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:7px;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:all .15s;}
 .zoom-btn:hover{border-color:var(--accent);color:var(--accent2);}
 .zoom-label{font-size:12px;color:var(--muted);min-width:38px;text-align:center;font-family:'IBM Plex Mono',monospace;}
@@ -218,6 +233,7 @@ tr:hover td{background:rgba(124,109,250,.04);}
 .se-badge{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.3);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;}
 .b-optional{background:rgba(100,116,139,.12);color:var(--muted2);border:1px dashed var(--muted);}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/css/jquery.orgchart.min.css"/>
 </head>
 <body>
 
@@ -446,17 +462,15 @@ tr:hover td{background:rgba(124,109,250,.04);}
 <div class="page" id="page-org" style="max-width:100%;padding:14px;">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
     <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;">แผนภูมิสายงาน</div>
-    <div class="zoom-controls">
-      <button class="zoom-btn" onclick="orgZoom(-0.15)">−</button>
+    <div class="org-zoom-controls">
+      <button class="zoom-btn" onclick="orgZoomIn()">+</button>
       <span class="zoom-label" id="zoom-label">100%</span>
-      <button class="zoom-btn" onclick="orgZoom(+0.15)">+</button>
+      <button class="zoom-btn" onclick="orgZoomOut()">−</button>
       <button class="zoom-btn" onclick="orgReset()" title="Reset">⌂</button>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-left:4px;">Scroll = เลื่อน · Pinch/Ctrl+Scroll = ซูม · ลาก = เคลื่อน</div>
+    <div style="font-size:11px;color:var(--muted);">ลากเพื่อเลื่อน · ซูมได้</div>
   </div>
-  <div class="org-outer" id="org-outer">
-    <div class="org-wrap" id="org-wrap"></div>
-  </div>
+  <div id="org-chart-container"></div>
 </div>
 
 <!-- MODAL: MEMBER -->
@@ -1087,57 +1101,76 @@ const LINE_COLORS=['#818cf8','#34d399','#fb923c','#f472b6','#facc15','#38bdf8','
 function getLineColor(line){
   if(!line)return null;
   const lines=[...new Set(members.map(m=>m.line).filter(Boolean))].sort();
-  const idx=lines.indexOf(line);
-  return LINE_COLORS[idx%LINE_COLORS.length];
+  return LINE_COLORS[lines.indexOf(line)%LINE_COLORS.length];
 }
 
-// ---- ZOOM & PAN ----
-let orgScale=1;
-function orgZoom(delta){
-  orgScale=Math.min(2.5,Math.max(0.25,orgScale+delta));
-  document.getElementById('org-wrap').style.transform=`scale(${orgScale})`;
-  document.getElementById('org-wrap').style.transformOrigin='top left';
-  document.getElementById('zoom-label').textContent=Math.round(orgScale*100)+'%';
+let orgZoomLevel = 1;
+function orgZoomIn(){ orgZoomLevel = Math.min(2, orgZoomLevel + 0.15); applyOrgZoom(); }
+function orgZoomOut(){ orgZoomLevel = Math.max(0.3, orgZoomLevel - 0.15); applyOrgZoom(); }
+function orgReset(){ orgZoomLevel = 1; applyOrgZoom(); renderOrg(); }
+function applyOrgZoom(){
+  const chart = document.querySelector('#org-chart-container .orgchart');
+  if(chart){ chart.style.transform = `scale(${orgZoomLevel})`; chart.style.transformOrigin = 'top center'; }
+  document.getElementById('zoom-label').textContent = Math.round(orgZoomLevel*100)+'%';
 }
-function orgReset(){orgScale=1;document.getElementById('org-wrap').style.transform='scale(1)';document.getElementById('zoom-label').textContent='100%';}
 
-// drag to pan
-(function initOrgPan(){
-  let dr=false,sx=0,sy=0,ox=0,oy=0;
-  function setup(){
-    const el=document.getElementById('org-outer');
-    if(!el)return setTimeout(setup,300);
-    el.addEventListener('mousedown',e=>{if(e.button!==0)return;dr=true;sx=e.clientX;sy=e.clientY;ox=el.scrollLeft;oy=el.scrollTop;el.classList.add('grabbing');});
-    el.addEventListener('mousemove',e=>{if(!dr)return;el.scrollLeft=ox-(e.clientX-sx);el.scrollTop=oy-(e.clientY-sy);});
-    el.addEventListener('mouseup',()=>{dr=false;el.classList.remove('grabbing');});
-    el.addEventListener('mouseleave',()=>{dr=false;el.classList.remove('grabbing');});
-    el.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();orgZoom(e.deltaY<0?0.1:-0.1);}},{passive:false});
-    // pinch zoom
-    let pd=0;
-    el.addEventListener('touchstart',e=>{if(e.touches.length===2)pd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);});
-    el.addEventListener('touchmove',e=>{if(e.touches.length===2){e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);orgZoom((d-pd)*0.005);pd=d;}},{passive:false});
+function buildOrgData(memberId) {
+  const m = members.find(x => x.id === memberId);
+  if (!m) return null;
+  const upline = members.find(x => x.id === m.uplineId);
+  const lc = getLineColor(m.line);
+  const lineLabel = m.line ? ` [${m.line}]` : '';
+  const node = {
+    name: m.name + (upline ? ` (${upline.name})` : ''),
+    title: m.line || '—',
+    className: m.uplineId ? '' : 'root-node',
+  };
+  const children = members.filter(x => x.uplineId === memberId);
+  if (children.length) {
+    node.children = children.map(c => buildOrgData(c.id)).filter(Boolean);
   }
-  setTimeout(setup,100);
-})();
+  return node;
+}
 
 function renderOrg(){
-  const c=document.getElementById('org-wrap');
-  if(!members.length){c.innerHTML='<div class="empty"><div class="empty-ico">🌳</div><p>ยังไม่มีสมาชิก</p></div>';return;}
-  const roots=members.filter(m=>!m.uplineId);
-  function buildNode(m,depth=0){
-    const children=members.filter(x=>x.uplineId===m.id);
-    const lc=getLineColor(m.line);
-    const nStyle=depth===0
-      ?'border-color:var(--accent);background:rgba(124,109,250,.12)'
-      :lc?`border-color:${lc}55;background:${lc}12`:'border-color:var(--border2);background:var(--surface2)';
-    const lineTag=m.line&&lc
-      ?`<div class="ns" style="background:${lc}22;color:${lc};border-radius:4px;padding:1px 6px;font-size:10px;margin-top:4px;font-weight:700">${m.line}</div>`
-      :(m.line?`<div class="ns">${m.line}</div>`:'');
-    const node=`<div class="org-node" style="${nStyle}"><div class="nn">${displayName(m)}</div>${lineTag}</div>`;
-    if(!children.length)return`<div class="org-child">${node}</div>`;
-    return`<div class="org-child">${node}<div class="org-connector-v"></div><div class="org-children-wrap">${children.map(ch=>buildNode(ch,depth+1)).join('')}</div></div>`;
+  const container = document.getElementById('org-chart-container');
+  if (!members.length) {
+    container.innerHTML = '<div class="empty"><div class="empty-ico">🌳</div><p>ยังไม่มีสมาชิก</p></div>';
+    return;
   }
-  c.innerHTML=`<div style="display:inline-flex;gap:60px;align-items:flex-start;">${roots.map(r=>buildNode(r)).join('')}</div>`;
+  if (typeof $ === 'undefined') {
+    setTimeout(renderOrg, 500); return;
+  }
+  container.innerHTML = '';
+  const roots = members.filter(m => !m.uplineId);
+  if (!roots.length) {
+    container.innerHTML = '<div class="empty"><div class="empty-ico">⚠️</div><p>ยังไม่มีสมาชิก Root</p></div>';
+    return;
+  }
+  // Build data for first root (or wrap multiple roots)
+  let ds;
+  if (roots.length === 1) {
+    ds = buildOrgData(roots[0].id);
+  } else {
+    ds = {
+      name: 'องค์กร',
+      title: '',
+      children: roots.map(r => buildOrgData(r.id)).filter(Boolean)
+    };
+  }
+  const $wrap = $('<div>').appendTo($(container));
+  $wrap.orgchart({
+    data: ds,
+    nodeContent: 'title',
+    pan: true,
+    zoom: true,
+    zoomoutLimit: 0.3,
+    zoominLimit: 2,
+    exportButton: false,
+    direction: 't2b',
+  });
+  orgZoomLevel = 1;
+  document.getElementById('zoom-label').textContent = '100%';
 }
 
 // ============================================================
@@ -1713,5 +1746,7 @@ function exportCSV(){
 }
 const s=document.createElement('style');s.textContent='.active-btn{opacity:1!important;filter:brightness(1.2);box-shadow:0 0 0 2px currentColor!important;}';document.head.appendChild(s);
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.8.0/js/jquery.orgchart.min.js"></script>
 </body>
 </html>
