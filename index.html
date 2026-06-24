@@ -1261,12 +1261,16 @@ async function sendLineMsg(text) {
   const group   = localStorage.getItem('dt-line-group');
   if(!backend || !token || !group) return false;
   try {
-    const res = await fetch(backend, {
+    // Apps Script ไม่รองรับ CORS จึงใช้ no-cors
+    // แต่ต้องส่งเป็น form-urlencoded หรือใช้ fetch แบบ no-cors
+    await fetch(backend, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token, groupId: group, message: text })
     });
-    return res.ok;
+    // no-cors ไม่สามารถอ่าน response ได้ ถือว่าสำเร็จ
+    return true;
   } catch(e) {
     console.error('LINE send error:', e);
     return false;
@@ -1274,11 +1278,16 @@ async function sendLineMsg(text) {
 }
 
 async function testLineMsg() {
-  document.getElementById('line-status').innerHTML = '<span style="color:var(--yellow)">⏳ กำลังส่ง...</span>';
-  const ok = await sendLineMsg('🧪 ทดสอบจาก Deniel\'s Team Attendance System\n✅ ระบบพร้อมใช้งานแล้ว!');
-  document.getElementById('line-status').innerHTML = ok
-    ? '<span style="color:var(--green)">✅ ส่งสำเร็จ! ตรวจสอบในกลุ่ม LINE</span>'
-    : '<span style="color:var(--red)">❌ ส่งไม่สำเร็จ ตรวจสอบ Token / Group ID / Backend URL</span>';
+  const backend = localStorage.getItem('dt-line-backend');
+  const token   = localStorage.getItem('dt-line-token');
+  const group   = localStorage.getItem('dt-line-group');
+  if(!backend || !token || !group) {
+    document.getElementById('line-status').innerHTML = '<span style="color:var(--red)">❌ กรุณากรอก Token, Group ID และ Backend URL ให้ครบก่อน</span>';
+    return;
+  }
+  document.getElementById('line-status').innerHTML = '<span style="color:var(--yellow)">⏳ กำลังส่ง... ตรวจสอบในกลุ่ม LINE สักครู่</span>';
+  await sendLineMsg('🧪 ทดสอบจาก Deniel\'s Team Attendance System\n✅ ระบบพร้อมใช้งานแล้ว!');
+  document.getElementById('line-status').innerHTML = '<span style="color:var(--green)">✅ ส่งคำสั่งแล้ว — ตรวจสอบในกลุ่ม LINE ได้เลย<br><span style="color:var(--muted);font-size:11px">หากไม่มีข้อความใน 10 วินาที ให้ตรวจสอบ Token และ Backend URL</span></span>';
 }
 
 function buildLineMsg(type, date, eligible) {
