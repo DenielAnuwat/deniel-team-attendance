@@ -1260,21 +1260,30 @@ async function sendLineMsg(text) {
   const token   = localStorage.getItem('dt-line-token');
   const group   = localStorage.getItem('dt-line-group');
   if(!backend || !token || !group) return false;
-  try {
-    const encToken = token.replace(/\+/g,'%2B').replace(/\//g,'%2F').replace(/=/g,'%3D');
-    const url = backend
-      + '?token=' + encToken
-      + '&groupId=' + encodeURIComponent(group)
-      + '&message=' + encodeURIComponent(text);
-    // ใช้ fetch no-cors — Apps Script ไม่ต้องการ response
-    fetch(url, { method: 'GET', mode: 'no-cors' }).catch(()=>{});
-    // รอ 1 วินาทีให้ request ออกไปก่อน
-    await new Promise(r => setTimeout(r, 1000));
-    return true;
-  } catch(e) {
-    console.error('LINE send error:', e);
-    return false;
-  }
+  return new Promise((resolve) => {
+    try {
+      const encToken = token.replace(/\+/g,'%2B').replace(/\//g,'%2F').replace(/=/g,'%3D');
+      const url = backend
+        + '?token=' + encToken
+        + '&groupId=' + encodeURIComponent(group)
+        + '&message=' + encodeURIComponent(text);
+      // เปิด URL ใน iframe ที่ซ่อนอยู่
+      let iframe = document.getElementById('_line_sender');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = '_line_sender';
+        iframe.style.cssText = 'display:none;width:0;height:0;border:0;position:absolute;';
+        document.body.appendChild(iframe);
+      }
+      iframe.onload = () => resolve(true);
+      iframe.onerror = () => resolve(true);
+      iframe.src = url;
+      setTimeout(() => resolve(true), 5000);
+    } catch(e) {
+      console.error('LINE send error:', e);
+      resolve(false);
+    }
+  });
 }
 
 async function testLineMsg() {
