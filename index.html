@@ -1262,16 +1262,17 @@ async function sendLineMsg(text) {
   if(!backend || !token || !group) return false;
   return new Promise((resolve) => {
     try {
+      // encode แล้ว replace %2B กลับเป็น + เพื่อให้ Apps Script รับได้
+      const encToken = token.replace(/\+/g,'%2B').replace(/\//g,'%2F').replace(/=/g,'%3D');
+      const encMsg   = encodeURIComponent(text);
       const url = backend
-        + '?token=' + encodeURIComponent(token)
+        + '?token=' + encToken
         + '&groupId=' + encodeURIComponent(group)
-        + '&message=' + encodeURIComponent(text);
-      // ใช้ Image tag แทน fetch — ไม่มี CORS block
+        + '&message=' + encMsg;
       const img = new Image();
       img.onload = () => resolve(true);
-      img.onerror = () => resolve(true); // Apps Script ส่ง non-image กลับมา = onerror แต่ request ถึงแล้ว
+      img.onerror = () => resolve(true);
       img.src = url;
-      // timeout 10 วินาที
       setTimeout(() => resolve(true), 10000);
     } catch(e) {
       console.error('LINE send error:', e);
