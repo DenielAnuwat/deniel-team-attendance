@@ -1266,22 +1266,10 @@ async function sendLineMsg(text) {
       + '?token=' + encToken
       + '&groupId=' + encodeURIComponent(group)
       + '&message=' + encodeURIComponent(text);
-    // ใช้ form submit เพื่อหลีกเลี่ยง CORS
-    const form = document.createElement('form');
-    form.method = 'GET';
-    form.action = url;
-    form.target = 'line-iframe';
-    let iframe = document.getElementById('line-iframe');
-    if(!iframe){
-      iframe = document.createElement('iframe');
-      iframe.name = 'line-iframe';
-      iframe.id = 'line-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
+    // ใช้ fetch no-cors — Apps Script ไม่ต้องการ response
+    fetch(url, { method: 'GET', mode: 'no-cors' }).catch(()=>{});
+    // รอ 1 วินาทีให้ request ออกไปก่อน
+    await new Promise(r => setTimeout(r, 1000));
     return true;
   } catch(e) {
     console.error('LINE send error:', e);
