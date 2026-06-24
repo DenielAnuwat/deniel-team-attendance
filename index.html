@@ -1261,15 +1261,12 @@ async function sendLineMsg(text) {
   const group   = localStorage.getItem('dt-line-group');
   if(!backend || !token || !group) return false;
   try {
-    // Apps Script ไม่รองรับ CORS จึงใช้ no-cors
-    // แต่ต้องส่งเป็น form-urlencoded หรือใช้ fetch แบบ no-cors
-    await fetch(backend, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, groupId: group, message: text })
-    });
-    // no-cors ไม่สามารถอ่าน response ได้ ถือว่าสำเร็จ
+    // ใช้ GET + URL params เพื่อหลีกเลี่ยง CORS
+    const url = backend
+      + '?token=' + encodeURIComponent(token)
+      + '&groupId=' + encodeURIComponent(group)
+      + '&message=' + encodeURIComponent(text);
+    await fetch(url, { method: 'GET', mode: 'no-cors' });
     return true;
   } catch(e) {
     console.error('LINE send error:', e);
