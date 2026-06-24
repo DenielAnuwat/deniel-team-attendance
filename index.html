@@ -1260,18 +1260,24 @@ async function sendLineMsg(text) {
   const token   = localStorage.getItem('dt-line-token');
   const group   = localStorage.getItem('dt-line-group');
   if(!backend || !token || !group) return false;
-  try {
-    // ใช้ GET + URL params เพื่อหลีกเลี่ยง CORS
-    const url = backend
-      + '?token=' + encodeURIComponent(token)
-      + '&groupId=' + encodeURIComponent(group)
-      + '&message=' + encodeURIComponent(text);
-    await fetch(url, { method: 'GET', mode: 'no-cors' });
-    return true;
-  } catch(e) {
-    console.error('LINE send error:', e);
-    return false;
-  }
+  return new Promise((resolve) => {
+    try {
+      const url = backend
+        + '?token=' + encodeURIComponent(token)
+        + '&groupId=' + encodeURIComponent(group)
+        + '&message=' + encodeURIComponent(text);
+      // ใช้ Image tag แทน fetch — ไม่มี CORS block
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(true); // Apps Script ส่ง non-image กลับมา = onerror แต่ request ถึงแล้ว
+      img.src = url;
+      // timeout 10 วินาที
+      setTimeout(() => resolve(true), 10000);
+    } catch(e) {
+      console.error('LINE send error:', e);
+      resolve(false);
+    }
+  });
 }
 
 async function testLineMsg() {
