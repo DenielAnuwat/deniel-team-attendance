@@ -89,7 +89,7 @@
       <label for="f_nickname">ชื่อเล่น<input id="f_nickname" name="nickname" required value="${esc(p.nickname)}"></label>
       <label for="f_upline">อัพไลน์ติดตัว<input id="f_upline" name="upline" required value="${esc(p.upline)}"></label>
       <label for="f_workstream">สายงาน<select id="f_workstream" name="workstream" required>${options(WS, p.workstream, 'เลือกสายงาน')}</select></label>
-      <label for="f_phone">เบอร์โทร<input id="f_phone" name="phone" required inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxx" value="${esc(p.phone)}"></label>
+      <label for="f_phone">เบอร์โทร<input id="f_phone" name="phone" required type="tel" inputmode="tel" autocomplete="tel" maxlength="12" placeholder="08xxxxxxxx" value="${esc(p.phone)}"></label>
       <label for="f_gender">เพศ<select id="f_gender" name="gender" required>${options(['ชาย', 'หญิง'], p.gender, 'เลือก')}</select></label>
       <label for="f_ticket_type">ประเภทบัตร<select id="f_ticket_type" name="ticket_type" required>${options(TICKETS, p.ticket_type, 'เลือก')}</select></label>
       <label class="all" for="f_stay_choice">ต้องการที่พัก<select id="f_stay_choice" name="stay_choice" required>${options(stayLocked ? ['ไม่พัก'] : ['พัก', 'ไม่พัก'], p.stay_choice, stayLocked ? null : 'เลือก')}</select></label>
@@ -100,7 +100,7 @@
     if (!cfg.registration_open) return `<section class="slab"><h2>ปิดรับลงทะเบียนแล้ว</h2><p class="muted">ถ้าลงทะเบียนไว้แล้ว ดูข้อมูลได้ที่เมนู “ข้อมูลของฉัน”</p></section>`;
     return `<div class="twin">
       <section class="slab"><div><h2>ลงทะเบียนเข้าร่วม</h2><p class="muted">กรอกครั้งเดียว ระบบออก Beyond ID ให้ทันที แล้วกลับมาส่งสลิปหรือแก้ข้อมูลภายหลังได้</p></div>
-        <form id="regForm">${personFields()}<button class="btn main" type="submit" id="regBtn">ยืนยันการลงทะเบียน</button></form>
+        <form id="regForm">${personFields()}<div class="m-total" aria-live="polite"><span id="mNote" class="small muted">เลือกบัตรและที่พักเพื่อดูยอด</span><b id="mTotal">–</b></div><button class="btn main" type="submit" id="regBtn">ยืนยันการลงทะเบียน</button></form>
       </section>
       <aside class="slab bill" aria-label="สรุปยอดชำระ"><h3>ยอดที่ต้องชำระ</h3><div id="bill"></div></aside></div>`;
   }
@@ -111,6 +111,7 @@
     const t = form.ticket_type.value, s = form.stay_choice.value, round = after() ? 'General' : 'Early Bird';
     const tf = fee(t, round), sf = s === 'พัก' ? cfg.prices.stay : s ? 0 : null;
     const rows = t === 'เสาร์-อาทิตย์' ? (round === 'Early Bird' ? 'ราคา Early Bird' : 'ราคาหน้างาน') : t ? 'บัตรวันเดียว' : 'เลือกประเภทบัตร';
+    const mt = $('#mTotal'); if (mt) { mt.textContent = tf == null || sf == null ? '–' : baht(tf + sf); $('#mNote').textContent = tf == null || sf == null ? 'เลือกบัตรและที่พักเพื่อดูยอด' : `บัตร ${baht(tf)}${sf ? ` + ที่พัก ${baht(sf)}` : ''} · จ่ายภายใน 15 พ.ย. 20:00 น.`; }
     box.innerHTML = `<div class="bill-row"><span>ค่าบัตร<br><small class="muted">${rows}</small></span><b class="num">${tf == null ? '–' : baht(tf)}</b></div>
       <div class="bill-row"><span>ที่พัก 1 คืน</span><b class="num">${sf == null ? '–' : baht(sf)}</b></div>
       <div class="bill-row total"><span>รวม</span><b class="num">${tf == null || sf == null ? '–' : baht(tf + sf)}</b></div>
@@ -458,6 +459,9 @@
       adminCall(btn, 'admin_set_refund', { p_id: p.id, p_amount: Number(data.amount), p_completed: false }, 'บันทึกยอดคืนแล้ว');
     }
   });
+
+  document.addEventListener('focusin', e => { if (e.target.matches('input:not([type=file]),textarea')) document.body.classList.add('typing'); });
+  document.addEventListener('focusout', () => document.body.classList.remove('typing'));
 
   async function boot() {
     const h = location.hash.slice(1);

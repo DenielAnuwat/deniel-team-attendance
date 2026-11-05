@@ -9,14 +9,14 @@
   const snow = [], bubbles = [], burst = [];
 
   function size() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    dpr = Math.min(window.devicePixelRatio || 1, innerWidth < 760 ? 1.25 : 1.5);
     W = innerWidth; H = innerHeight;
     for (const c of [cv, fx]) { c.width = W * dpr; c.height = H * dpr; }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     fctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (still) frame(20);
   }
-  for (let i = 0; i < 110; i++) snow.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + .3, s: Math.random() * .012 + .004, a: Math.random() * .5 + .12 });
+  for (let i = 0; i < (innerWidth < 760 ? 50 : 110); i++) snow.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + .3, s: Math.random() * .012 + .004, a: Math.random() * .5 + .12 });
   for (let i = 0; i < 16; i++) bubbles.push({ x: Math.random(), y: Math.random(), r: Math.random() * 4 + 1.5, s: Math.random() * .05 + .02, p: Math.random() * 6 });
 
   function bodyShape(u) {

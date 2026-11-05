@@ -70,7 +70,10 @@ input,select,textarea{width:100%;font:400 1rem var(--body);color:var(--foam);bac
 select{cursor:pointer}
 input::placeholder{color:#7fa6bb}
 input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
-input[type=file]{padding:9px}
+input[type=file]{padding:9px;font-size:.95rem}
+input[type=file]::file-selector-button{font:600 .95rem var(--body);color:var(--ink);background:var(--mist);border:0;border-radius:8px;padding:8px 12px;margin-right:10px;cursor:pointer}
+.m-total{display:none;justify-content:space-between;align-items:baseline;gap:12px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+.m-total b{font:700 1.4rem var(--display);color:var(--glow);font-variant-numeric:tabular-nums}
 .btn{appearance:none;border:1px solid var(--line);background:var(--slab2);color:var(--foam);font:600 .96rem var(--body);padding:9px 15px;border-radius:10px;cursor:pointer;min-height:42px}
 .btn:hover{border-color:var(--glow)}
 .btn.main{background:var(--glow);border-color:var(--glow);color:var(--ink);font-size:1.05rem;padding:13px 20px;font-weight:700}
@@ -123,7 +126,20 @@ footer{color:var(--mist);text-align:center;font-size:.86rem;padding-block:18px}
   .clock{justify-content:flex-start}
   .clockhead{text-align:left}
   .twin,.even{grid-template-columns:minmax(0,1fr)}
-  .bill{position:static}
+  .bill{display:none}
+  .m-total{display:flex}
+  .btn{min-height:46px}
+  .btn.main{width:100%}
+  body.typing .tabs{transform:translateY(120%)}
+  .tabs{transition:transform .15s}
+  .clock{gap:4px;justify-content:space-between}
+  .clock div{min-width:0;flex:1}
+  .clock b{font-size:1.6rem}
+  .tide h1{font-size:1.35rem}
+  .slab{padding:16px}
+  dialog{padding:16px}
+  .row.split{align-items:flex-start}
+  .acct b{font-size:1.1rem}
   .tabs{position:fixed;top:auto;bottom:0;left:0;right:0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px)}
   .tabs .wrap{gap:0}
   .tab{flex:1;flex-direction:column;gap:2px;font-size:.8rem;padding:8px 4px;border-bottom:0;border-top:3px solid transparent}
