@@ -1,0 +1,173 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Beyond29</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@500;700&display=swap">
+<style>
+/* Layout: a fixed living ocean behind everything; the poster dissolves into it; working surfaces float as dense glass slabs. */
+:root{
+  color-scheme:dark;
+  --abyss:#030a1d; --trench:#061a3d; --reef:#0b2a57; --line:#2a6d9c;
+  --foam:#ecfbff; --mist:#a9cfe2; --glow:#74e6ff; --ember:#ffb27a;
+  --ok:#62ecb0; --warn:#ffd36e; --bad:#ff8e88;
+  --slab:rgba(4,20,48,.9); --slab2:rgba(11,42,87,.72); --ink:#02142c;
+  --display:"Cinzel","Noto Serif Thai",Georgia,serif;
+  --head:"Noto Serif Thai","IBM Plex Sans Thai",Georgia,serif;
+  --body:"IBM Plex Sans Thai","Noto Sans Thai",Tahoma,sans-serif;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--abyss);color:var(--foam);font:400 16px/1.65 var(--body);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--abyss)}
+#ocean{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
+.page{position:relative;z-index:1;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;min-width:0}
+h1,h2,h3{font-family:var(--head);line-height:1.3;margin:0;text-wrap:balance;font-weight:700}
+h2{font-size:clamp(1.5rem,4vw,2.1rem)} h3{font-size:1.15rem}
+p{margin:0}
+a{color:var(--glow)}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--mist)}
+.small{font-size:.9rem}
+
+.demo{background:var(--warn);color:var(--ink);font-weight:600;text-align:center;font-size:.9rem;padding-block:6px;position:relative;z-index:2}
+.hero{position:relative;max-width:min(1280px,108vh);margin:0 auto}
+.hero img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(#000 90%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(#000 90%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+.tide{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:end;margin-top:0;padding-block:10px 22px}
+.tide h1{font-family:var(--display);font-size:clamp(1.5rem,4.4vw,2.5rem);letter-spacing:.06em}
+.tide .sub{color:var(--mist);margin-top:2px}
+.clock{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.clock div{min-width:66px;text-align:center}
+.clock b{display:block;font:700 1.9rem/1.1 var(--display);color:var(--glow);font-variant-numeric:tabular-nums}
+.clock span{font-size:.75rem;letter-spacing:.06em;color:var(--mist)}
+.count{display:grid;gap:4px}
+.clockhead{text-align:right;font-size:.88rem;color:var(--ember);font-weight:600}
+
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(3,10,29,.92);border-block:1px solid rgba(116,230,255,.2)}
+.tabs .wrap{display:flex;gap:6px}
+.tab{appearance:none;border:0;background:none;color:var(--mist);font:600 1rem var(--body);padding:13px 16px;cursor:pointer;border-bottom:3px solid transparent;display:flex;align-items:center;gap:8px;min-height:48px}
+.tab[aria-selected=true]{color:var(--foam);border-color:var(--glow)}
+.tab svg{width:20px;height:20px;flex:none}
+main{padding-block:26px 10px}
+.view{display:grid;gap:18px;min-width:0}
+
+.slab{background:var(--slab);border:1px solid rgba(116,230,255,.2);border-radius:var(--radius);padding:clamp(16px,3vw,26px);min-width:0;display:grid;gap:14px;align-content:start}
+.twin{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+.even{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.bill{position:sticky;top:76px}
+.bill-row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding-block:9px;border-bottom:1px dashed rgba(116,230,255,.25)}
+.bill-row b{font-size:1.1rem}
+.bill-row.total{border:0;font-size:1.1rem}
+.bill-row.total b{font:700 1.75rem var(--display);color:var(--glow)}
+
+form{display:grid;gap:14px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fields .all{grid-column:1/-1}
+label{display:grid;gap:5px;font-weight:600;font-size:.94rem;min-width:0}
+input,select,textarea{width:100%;font:400 1rem var(--body);color:var(--foam);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:46px}
+select{cursor:pointer}
+input::placeholder{color:#7fa6bb}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+input[type=file]{padding:9px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--slab2);color:var(--foam);font:600 .96rem var(--body);padding:9px 15px;border-radius:10px;cursor:pointer;min-height:42px}
+.btn:hover{border-color:var(--glow)}
+.btn.main{background:var(--glow);border-color:var(--glow);color:var(--ink);font-size:1.05rem;padding:13px 20px;font-weight:700}
+.btn.main:hover{background:var(--foam)}
+.btn.ok{color:var(--ok)} .btn.bad{color:var(--bad)}
+.btn[disabled]{opacity:.55;cursor:wait}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.split{justify-content:space-between}
+.grow{flex:1;min-width:0}
+.note{background:rgba(255,178,122,.12);border:1px solid rgba(255,178,122,.45);color:#ffe2cc;border-radius:10px;padding:10px 13px;font-size:.93rem}
+.err{background:rgba(255,142,136,.14);border:1px solid var(--bad);color:#ffdedb;border-radius:10px;padding:10px 13px}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.84rem;font-weight:600;border:1px solid currentColor;white-space:nowrap}
+.pill.Paid,.pill.Active{color:var(--ok)}
+.pill.NotPaid,.pill.Rejected,.pill.Inactive{color:var(--bad)}
+.pill.WaitingVerify,.pill.NeedsReview,.pill.Test{color:var(--warn)}
+.pill.Refunded,.pill.none{color:var(--mist)}
+.acct{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.acct b{font-size:1.2rem;letter-spacing:.03em;font-variant-numeric:tabular-nums;display:block}
+.bigid{font:700 clamp(2rem,6vw,3rem)/1.1 var(--display);color:var(--glow);letter-spacing:.04em}
+dl{display:grid;grid-template-columns:minmax(90px,auto) minmax(0,1fr);gap:4px 14px;margin:0}
+dt{color:var(--mist)} dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+
+.subtabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.subtabs .btn{white-space:nowrap}
+.subtabs .btn[aria-selected=true]{background:var(--glow);color:var(--ink);border-color:var(--glow)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:10px}
+.tile{appearance:none;text-align:left;color:var(--foam);font:inherit;background:var(--slab2);border:1px solid rgba(116,230,255,.2);border-radius:12px;padding:11px 13px;display:block;min-width:0}
+button.tile{cursor:pointer}
+button.tile:hover{border-color:var(--glow)}
+.tile span{display:block;color:var(--mist);font-size:.86rem}
+.tile b{font:700 1.5rem/1.25 var(--body);font-variant-numeric:tabular-nums}
+.tile.ok b{color:var(--ok)} .tile.warn b{color:var(--warn)} .tile.bad b{color:var(--bad)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.tablebox{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.94rem;font-variant-numeric:tabular-nums}
+th{text-align:left;color:var(--mist);font-weight:600;white-space:nowrap}
+th,td{padding:9px 10px;border-bottom:1px solid rgba(116,230,255,.16);vertical-align:top}
+td input{min-height:38px;padding:6px 9px;min-width:80px}
+td .row{gap:6px;flex-wrap:nowrap}
+.empty{color:var(--mist);text-align:center;padding:26px 12px}
+
+dialog{background:#05183a;color:var(--foam);border:1px solid var(--line);border-radius:var(--radius);padding:20px;width:min(640px,calc(100vw - 24px));max-height:calc(100dvh - 40px)}
+dialog::backdrop{background:rgba(1,6,18,.76)}
+dialog img{display:block;max-width:100%;max-height:68vh;margin:0 auto;border-radius:8px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--foam);color:var(--ink);font-weight:600;padding:10px 16px;border-radius:10px;z-index:40;max-width:calc(100vw - 32px)}
+footer{color:var(--mist);text-align:center;font-size:.86rem;padding-block:18px}
+
+@media (max-width:760px){
+  .tide{grid-template-columns:minmax(0,1fr);margin-top:-2px}
+  .clock{justify-content:flex-start}
+  .clockhead{text-align:left}
+  .twin,.even{grid-template-columns:minmax(0,1fr)}
+  .bill{position:static}
+  .tabs{position:fixed;top:auto;bottom:0;left:0;right:0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tabs .wrap{gap:0}
+  .tab{flex:1;flex-direction:column;gap:2px;font-size:.8rem;padding:8px 4px;border-bottom:0;border-top:3px solid transparent}
+  .tab[aria-selected=true]{border-top-color:var(--glow)}
+  table.cards thead{display:none}
+  table.cards,table.cards tbody,table.cards tr,table.cards td{display:block;width:100%}
+  table.cards tr{border:1px solid rgba(116,230,255,.22);border-radius:12px;margin-bottom:10px;padding:6px 10px;background:var(--slab2)}
+  table.cards td{border:0;padding:5px 0;display:grid;grid-template-columns:104px minmax(0,1fr);gap:8px;overflow-wrap:anywhere}
+  table.cards td::before{content:attr(data-label);color:var(--mist);font-size:.86rem}
+  table.cards td .row{flex-wrap:wrap}
+}
+@media (max-width:460px){.fields{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<canvas id="ocean" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div class="page">
+  <div class="demo gutter" id="demoBar" hidden>โหมดตัวอย่าง ข้อมูลในหน้านี้เป็นข้อมูลสมมติ ยังไม่ได้บันทึกจริง · Admin ทดลองด้วย demo@beyond29 / demo</div>
+  <header>
+    <div class="hero"><img src="poster.jpg" alt="โปสเตอร์งาน BEYOND 12–13 December 2026 ปลาวาฬเรืองแสงว่ายใต้ทะเลลึก" width="1548" height="890"></div>
+    <div class="gutter"><div class="wrap tide">
+      <div>
+        <h1>BEYOND29</h1>
+        <p class="sub">12–13 ธันวาคม 2569 · ระบบลงทะเบียนผู้เข้าร่วม</p>
+      </div>
+      <div class="count"><div class="clockhead" id="clockHead">Early Bird ปิด 15 พ.ย. 2569 เวลา 20:00 น.</div>
+      <div class="clock num" id="clock" role="timer" aria-label="เวลาที่เหลือก่อนปิด Early Bird"></div></div>
+    </div></div>
+  </header>
+
+  <nav class="tabs gutter" aria-label="เมนูหลัก"><div class="wrap" role="tablist">
+    <button class="tab" role="tab" data-tab="register" id="tabRegister"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16v4a2 2 0 0 0 0 3v3H4v-3a2 2 0 0 0 0-3zM14 7v10" /></svg>ลงทะเบียน</button>
+    <button class="tab" role="tab" data-tab="me" id="tabMe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/></svg>ข้อมูลของฉัน</button>
+    <button class="tab" role="tab" data-tab="admin" id="tabAdmin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Admin</button>
+  </div></nav>
+
+  <div class="gutter"><main class="wrap" id="main" aria-live="polite"></main></div>
+  <footer class="gutter">Beyond29 · ข้อมูลและสลิปเก็บแบบส่วนตัว เฉพาะทีมงานดูได้</footer>
+</div>
+<dialog id="dlg"></dialog>
+
+<script>window.B29_CONFIG={url:"https://otbqmlccoirxuonjrxlj.supabase.co",anon:"sb_publishable_ySCvzrX--AF5d7B3nQHQ1g_uZR0xhae"};</script>
+<script src="ocean.js"></script>
+<script src="app.js"></script>
+</body></html>
