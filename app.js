@@ -139,7 +139,7 @@
       <p class="num" style="font-size:1.5rem;font-weight:700">${baht(amount)}${isTicket ? ` <small class="muted" style="font-size:.85rem;font-weight:400">${me.price_round === 'Early Bird' ? 'Early Bird' : 'ราคาหน้างาน'}</small>` : ''}</p>
       ${st === 'Rejected' && reason ? `<p class="err">สลิปไม่ผ่าน: ${esc(reason)}</p>` : ''}
       ${st === 'Needs Review' ? `<p class="note">ยอดเปลี่ยนหลังจากส่งสลิปแล้ว ทีมงานจะตรวจและแจ้งส่วนต่าง</p>` : ''}
-      ${open && !closed ? `<div class="acct"><div><span class="muted small">พร้อมเพย์ · ${esc(acc.name)}</span><b>${esc(acc.promptpay)}</b></div><button class="btn" data-act="copy" data-v="${esc(acc.promptpay)}" type="button">คัดลอก</button></div>
+      ${open && !closed ? `<div class="acct"><div><span class="muted small">${acc.bank ? `ธนาคาร${esc(acc.bank)}` : 'พร้อมเพย์'} · ${esc(acc.name)}</span><b>${esc(acc.account || acc.promptpay)}</b></div><button class="btn" data-act="copy" data-v="${esc(acc.account || acc.promptpay)}" type="button">คัดลอก</button></div>
         ${isTicket && me.price_round === 'Early Bird' && me.ticket_type === 'เสาร์-อาทิตย์' ? `<p class="note">ส่งสลิปภายใน ${CUT_TEXT} เพื่อรับราคา Early Bird</p>` : ''}
         ${!isTicket ? `<p class="note">ส่งสลิปภายใน ${CUT_TEXT}</p>` : ''}
         <form class="slipForm" data-type="${kind}"><label for="slip${kind}">แนบสลิปโอนเงิน (รูป หรือ PDF ไม่เกิน 8 MB)<input id="slip${kind}" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" required></label><button class="btn main">ส่งสลิป</button></form>` : ''}
@@ -389,7 +389,7 @@
     if (b.tagName === 'BUTTON' && act !== 'copy') ev.preventDefault();
     const acts = {
       close: () => dlg.close(),
-      copy: async () => { try { await navigator.clipboard.writeText(b.dataset.v); toast('คัดลอกเลขพร้อมเพย์แล้ว'); } catch { toast(b.dataset.v); } },
+      copy: async () => { try { await navigator.clipboard.writeText(b.dataset.v); toast('คัดลอกเลขบัญชีแล้ว'); } catch { toast(b.dataset.v); } },
       pick: () => { nickPick = id; render(); },
       leave: () => { setMe(null); render(); },
       editMe: () => editDialog(me, false),
