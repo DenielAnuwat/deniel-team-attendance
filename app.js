@@ -396,7 +396,7 @@
       forgot: () => { const e = $('#a_email').value; if (!e) { toast('กรอกอีเมลก่อน'); return; } busy(b, async () => { await api.forgot(e); toast('ส่งลิงก์เปลี่ยนรหัสผ่านไปที่อีเมลแล้ว'); }); },
       logout: async () => { await api.logout(); A.signed = false; A.data = null; render(); },
       reload: () => loadAdmin(),
-      aview: () => { A.view = b.dataset.v; render(); },
+      aview: () => { A.view = b.dataset.v; if (A.view === 'slips' && !('pay_status' in A.f)) A.f.pay_status = 'Waiting Verify'; render(); },
       go: () => { const [k, v] = b.dataset.go.split('|'); A.f = { [k]: v }; A.view = 'people'; render(); },
       csv: () => csv(),
       adminEdit: () => editDialog(byId(id), true),
